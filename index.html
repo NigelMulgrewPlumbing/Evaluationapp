@@ -1187,6 +1187,15 @@
                     const status = evaluationData[room][item];
                     report += `<p class="${status}">${item}: ${status.toUpperCase()}</p>`;
                 }
+                
+                // Add bathroom notes if they exist
+                const notesTextarea = document.getElementById(`${room}-notes`);
+                if (notesTextarea && notesTextarea.value) {
+                    report += `<div style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;">`;
+                    report += `<strong>Notes:</strong> ${notesTextarea.value}`;
+                    report += `</div>`;
+                }
+                
                 report += `</div>`;
             }
             
