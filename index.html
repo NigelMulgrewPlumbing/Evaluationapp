@@ -391,6 +391,7 @@
             <button class="tab" onclick="showSection('kitchen')">🍳 Kitchen</button>
             <button class="tab" onclick="showSection('laundry')">🧺 Laundry</button>
             <button class="tab" onclick="showSection('mechanical')">⚙️ Mechanical</button>
+            <button class="tab" onclick="showSection('garage')">🏠 Garage/Yard</button>
             <button class="tab" onclick="showSection('general')">🔧 General</button>
             <button class="tab" onclick="showSection('summary')">📊 Summary</button>
         </div>
@@ -429,6 +430,13 @@
                 <h2 style="font-size: 18px; margin-bottom: 15px;">Mechanical Room Evaluation</h2>
                 <div id="mechanical-content">
                     <!-- Mechanical checklist will be added here -->
+                </div>
+            </div>
+            
+            <div id="garage" class="section">
+                <h2 style="font-size: 18px; margin-bottom: 15px;">Garage/Yard Evaluation</h2>
+                <div id="garage-content">
+                    <!-- Garage checklist will be added here -->
                 </div>
             </div>
             
@@ -485,6 +493,7 @@
             document.getElementById('kitchen-1').innerHTML = getKitchenChecklist(1);
             document.getElementById('laundry-content').innerHTML = getLaundryChecklist();
             document.getElementById('mechanical-content').innerHTML = getMechanicalChecklist();
+            document.getElementById('garage-content').innerHTML = getGarageChecklist();
             document.getElementById('general-content').innerHTML = getGeneralChecklist();
             
             // Set today's date
@@ -818,6 +827,15 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
+                    <h3>📝 Kitchen Notes</h3>
+                    <textarea 
+                        id="kitchen-${num}-notes" 
+                        placeholder="Enter notes about sink condition, disposal issues, dishwasher connections, refrigerator water line, etc."
+                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
+                    ></textarea>
+                </div>
             `;
         }
         
@@ -1044,6 +1062,135 @@
                         </div>
                     </div>
                 </div>
+                
+                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
+                    <h3>📝 Mechanical Room Notes</h3>
+                    <textarea 
+                        id="mechanical-notes" 
+                        placeholder="Enter notes about water heater age/model, equipment conditions, maintenance recommendations, etc."
+                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
+                    ></textarea>
+                </div>
+            `;
+        }
+        
+        // Garage/Yard checklist
+        function getGarageChecklist() {
+            return `
+                <input type="text" class="room-name-input" id="garage-name" placeholder="Enter location (e.g., Main Garage, Back Yard, Side Yard)">
+                
+                <div class="photo-section">
+                    <input type="file" id="garage-photos" class="photo-input" multiple accept="image/*" onchange="handlePhotos('garage', this)">
+                    <button class="photo-upload-btn" onclick="document.getElementById('garage-photos').click()">📷 Add Photos</button>
+                    <div id="garage-preview" class="photo-preview-container"></div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>🚿 Hose Faucet #1</h3>
+                    <div class="checklist-item">
+                        <label>1. Shut-off operation</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>2. Sealed and anchored</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>3. Anti-siphon device</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>4. Faucet operation</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>5. Drainable shut-off</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>🚿 Hose Faucet #2</h3>
+                    <div class="checklist-item">
+                        <label>6. Shut-off operation</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>7. Vacuum breaker</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>8. Sealed and anchored</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>9. Anti-siphon device</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>10. Drainable shut-off</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
+                    <h3>📝 Garage/Yard Notes</h3>
+                    <textarea 
+                        id="garage-notes" 
+                        placeholder="Enter notes about hose bibs, irrigation systems, outdoor fixtures, freeze damage, location details, etc."
+                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
+                    ></textarea>
+                </div>
             `;
         }
         
@@ -1079,6 +1226,15 @@
                             <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
                         </div>
                     </div>
+                </div>
+                
+                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
+                    <h3>📝 General System Notes</h3>
+                    <textarea 
+                        id="general-notes" 
+                        placeholder="Enter notes about overall plumbing condition, main shut-off location, water quality issues, etc."
+                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
+                    ></textarea>
                 </div>
             `;
         }
@@ -1263,6 +1419,9 @@
                 document.getElementById('jobNumber').value = '';
                 document.getElementById('technician').value = '';
                 document.getElementById('recommendations').value = '';
+                document.querySelectorAll('[id$="-notes"]').forEach(textarea => {
+                    textarea.value = '';
+                });
                 updateSummary();
             }
         }
