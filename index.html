@@ -1116,3 +1116,287 @@
             container.appendChild(newRoom);
             
             showBathroom(bathroomCount);
+        }
+        
+        // Show bathroom
+        function showBathroom(num) {
+            const container = document.getElementById('bathrooms');
+            container.querySelectorAll('.room-content').forEach(r => r.style.display = 'none');
+            container.querySelectorAll('.room-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(`bathroom-${num}`).style.display = 'block';
+            container.querySelectorAll('.room-tab')[num - 1].classList.add('active');
+        }
+        
+        // Add kitchen
+        function addKitchen() {
+            kitchenCount++;
+            const container = document.getElementById('kitchen');
+            const roomTabs = container.querySelector('.room-tabs');
+            
+            const newTab = document.createElement('button');
+            newTab.className = 'room-tab';
+            newTab.textContent = `Kitchen #${kitchenCount}`;
+            newTab.onclick = () => showKitchen(kitchenCount);
+            roomTabs.insertBefore(newTab, roomTabs.lastElementChild);
+            
+            const newRoom = document.createElement('div');
+            newRoom.id = `kitchen-${kitchenCount}`;
+            newRoom.className = 'room-content';
+            newRoom.style.display = 'none';
+            newRoom.innerHTML = getKitchenChecklist(kitchenCount);
+            container.appendChild(newRoom);
+            
+            showKitchen(kitchenCount);
+        }
+        
+        // Show kitchen
+        function showKitchen(num) {
+            const container = document.getElementById('kitchen');
+            container.querySelectorAll('.room-content').forEach(r => r.style.display = 'none');
+            container.querySelectorAll('.room-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(`kitchen-${num}`).style.display = 'block';
+            container.querySelectorAll('.room-tab')[num - 1].classList.add('active');
+        }
+        
+        // Set status
+        function setStatus(button, status, roomId) {
+            const parent = button.parentElement;
+            const buttons = parent.querySelectorAll('.status-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('pass', 'fail', 'warning', 'na');
+            });
+            
+            button.classList.add(status);
+            
+            if (!evaluationData[roomId]) {
+                evaluationData[roomId] = {};
+            }
+            const label = button.closest('.checklist-item').querySelector('label').textContent;
+            evaluationData[roomId][label] = status;
+        }
+        
+        // Handle photos
+        function handlePhotos(sectionId, input) {
+            const files = input.files;
+            if (!files || files.length === 0) return;
+            
+            if (!photoData[sectionId]) {
+                photoData[sectionId] = [];
+            }
+            
+            const previewContainer = document.getElementById(`${sectionId}-preview`);
+            
+            for (let file of files) {
+                if (file.type.startsWith('image/')) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        const photoId = Date.now() + Math.random();
+                        
+                        photoData[sectionId].push({
+                            id: photoId,
+                            data: e.target.result,
+                            name: file.name
+                        });
+                        
+                        const photoDiv = document.createElement('div');
+                        photoDiv.className = 'photo-preview';
+                        
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        
+                        const removeBtn = document.createElement('button');
+                        removeBtn.className = 'photo-remove';
+                        removeBtn.textContent = '×';
+                        removeBtn.onclick = () => {
+                            photoDiv.remove();
+                            photoData[sectionId] = photoData[sectionId].filter(p => p.id !== photoId);
+                        };
+                        
+                        photoDiv.appendChild(img);
+                        photoDiv.appendChild(removeBtn);
+                        previewContainer.appendChild(photoDiv);
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+        
+        // Update summary
+        function updateSummary() {
+            let totalChecked = 0;
+            let totalPassed = 0;
+            let totalWarnings = 0;
+            let totalFailed = 0;
+            
+            for (const room in evaluationData) {
+                for (const item in evaluationData[room]) {
+                    totalChecked++;
+                    const status = evaluationData[room][item];
+                    if (status === 'pass') totalPassed++;
+                    else if (status === 'warning') totalWarnings++;
+                    else if (status === 'fail') totalFailed++;
+                }
+            }
+            
+            document.getElementById('totalChecked').textContent = totalChecked;
+            document.getElementById('totalPassed').textContent = totalPassed;
+            document.getElementById('totalWarnings').textContent = totalWarnings;
+            document.getElementById('totalFailed').textContent = totalFailed;
+        }
+        
+        // Clear all
+        function clearAll() {
+            if (confirm('Clear all evaluation data?')) {
+                evaluationData = {};
+                photoData = {};
+                document.querySelectorAll('.status-btn').forEach(btn => {
+                    btn.classList.remove('pass', 'fail', 'warning', 'na');
+                });
+                document.querySelectorAll('.photo-preview-container').forEach(c => {
+                    c.innerHTML = '';
+                });
+                document.getElementById('jobNumber').value = '';
+                document.getElementById('technician').value = '';
+                document.getElementById('recommendations').value = '';
+                updateSummary();
+            }
+        }
+        
+        // Save data
+        function saveData() {
+            const data = {
+                jobInfo: {
+                    jobNumber: document.getElementById('jobNumber').value,
+                    jobDate: document.getElementById('jobDate').value,
+                    technician: document.getElementById('technician').value
+                },
+                roomNames: {},
+                roomNotes: {},
+                evaluationData: evaluationData,
+                photoData: photoData,
+                recommendations: document.getElementById('recommendations').value,
+                timestamp: new Date().toISOString()
+            };
+            
+            // Collect room names and notes
+            document.querySelectorAll('.room-name-input').forEach(input => {
+                if (input.value) {
+                    data.roomNames[input.id] = input.value;
+                }
+            });
+            
+            // Collect all notes
+            document.querySelectorAll('[id$="-notes"]').forEach(textarea => {
+                if (textarea.value) {
+                    data.roomNotes[textarea.id] = textarea.value;
+                }
+            });
+            
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `plumbing-eval-${data.jobInfo.jobNumber || Date.now()}.json`;
+            link.click();
+            
+            alert('Evaluation saved! File downloaded.');
+        }
+        
+        // Generate report
+        function generateReport() {
+            const jobNumber = document.getElementById('jobNumber').value || 'N/A';
+            const jobDate = document.getElementById('jobDate').value || 'N/A';
+            const technician = document.getElementById('technician').value || 'N/A';
+            
+            let report = `
+                <html>
+                <head>
+                    <title>Plumbing Report - ${jobNumber}</title>
+                    <style>
+                        body { font-family: Arial; max-width: 800px; margin: 20px auto; }
+                        h1 { color: #2c3e50; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
+                        .header { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+                        .section { margin: 20px 0; }
+                        .room-name { color: #667eea; font-weight: bold; font-size: 1.1em; margin-top: 15px; }
+                        .pass { color: #28a745; }
+                        .warning { color: #ffc107; }
+                        .fail { color: #dc3545; }
+                        .na { color: #6c757d; }
+                        @media print { .no-print { display: none; } }
+                    </style>
+                </head>
+                <body>
+                    <h1>Nigel Mulgrew Plumbing - Evaluation Report</h1>
+                    <div class="header">
+                        <p><strong>Job #:</strong> ${jobNumber}</p>
+                        <p><strong>Date:</strong> ${jobDate}</p>
+                        <p><strong>Technician:</strong> ${technician}</p>
+                    </div>
+            `;
+            
+            // Add room names and evaluation results
+            for (const room in evaluationData) {
+                const roomNameInput = document.getElementById(`${room}-name`);
+                const roomName = roomNameInput ? roomNameInput.value : room;
+                
+                report += `<div class="section">`;
+                if (roomName && roomName !== room) {
+                    report += `<div class="room-name">${roomName}</div>`;
+                }
+                report += `<h2>${room.toUpperCase()}</h2>`;
+                
+                for (const item in evaluationData[room]) {
+                    const status = evaluationData[room][item];
+                    report += `<p class="${status}">${item}: ${status.toUpperCase()}</p>`;
+                }
+                
+                // Add notes if they exist
+                const notesTextarea = document.getElementById(`${room}-notes`);
+                if (notesTextarea && notesTextarea.value) {
+                    report += `<div style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;">`;
+                    report += `<strong>Notes:</strong> ${notesTextarea.value}`;
+                    report += `</div>`;
+                }
+                
+                report += `</div>`;
+            }
+            
+            // Add photo count
+            let totalPhotos = 0;
+            for (const section in photoData) {
+                totalPhotos += photoData[section].length;
+            }
+            if (totalPhotos > 0) {
+                report += `<p><strong>Photos attached:</strong> ${totalPhotos}</p>`;
+            }
+            
+            // Add recommendations
+            const recommendations = document.getElementById('recommendations').value;
+            if (recommendations) {
+                report += `<div class="section"><h2>Recommendations</h2><p>${recommendations}</p></div>`;
+            }
+            
+            report += `
+                    <div class="no-print" style="margin-top: 30px;">
+                        <button onclick="window.print()">Print Report</button>
+                    </div>
+                </body>
+                </html>
+            `;
+            
+            const reportWindow = window.open('', '_blank');
+            reportWindow.document.write(report);
+            reportWindow.document.close();
+        }
+        
+        // Initialize app when page loads
+        window.onload = initApp;
+    </script>
+</body>
+</html>
