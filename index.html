@@ -230,6 +230,27 @@
             color: white;
         }
         
+        .size-btn {
+            padding: 6px 12px;
+            background: white;
+            border: 2px solid #dee2e6;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .size-btn:hover {
+            background: #f8f9fa;
+        }
+        
+        .size-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+        
         .photo-section {
             background: white;
             border-radius: 8px;
@@ -478,6 +499,7 @@
             <button class="btn btn-secondary" onclick="clearAll()">🔄 Clear</button>
             <button class="btn btn-primary" onclick="saveData()">💾 Save</button>
             <button class="btn btn-success" onclick="generateReport()">📄 Report</button>
+            <button class="btn btn-success" onclick="emailReport()">📧 Email Report</button>
         </div>
     </div>
     
@@ -1194,13 +1216,13 @@
             `;
         }
         
-        // General checklist
+        // General checklist - UPDATED WITH ALL NEW ITEMS
         function getGeneralChecklist() {
             return `
                 <div class="checklist-group">
-                    <h3>💧 Water System</h3>
+                    <h3>💧 Water Supply Piping</h3>
                     <div class="checklist-item">
-                        <label>Main shut-off valve</label>
+                        <label>1. Proper flow/operation</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
                             <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
@@ -1209,7 +1231,7 @@
                         </div>
                     </div>
                     <div class="checklist-item">
-                        <label>Water pressure</label>
+                        <label>2. Emergency shut-off</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
                             <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
@@ -1218,7 +1240,129 @@
                         </div>
                     </div>
                     <div class="checklist-item">
-                        <label>Pipe insulation</label>
+                        <label>3. Anchored properly</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>4. Pressure reduction</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>5. Shut-off valves tagged</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item" style="background: #e8f4ff;">
+                        <label style="font-weight: 600;">6. Domestic cold water supply size</label>
+                        <div style="display: flex; gap: 5px;">
+                            <button class="size-btn" onclick="selectSize(this, 'water-size', 'general')" data-size="3/4">3/4"</button>
+                            <button class="size-btn" onclick="selectSize(this, 'water-size', 'general')" data-size="1">1"</button>
+                            <button class="size-btn" onclick="selectSize(this, 'water-size', 'general')" data-size="1-1/4">1¼"</button>
+                            <button class="size-btn" onclick="selectSize(this, 'water-size', 'general')" data-size="1-1/2">1½"</button>
+                            <button class="size-btn" onclick="selectSize(this, 'water-size', 'general')" data-size="2">2"</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>🚿 Sanitary System</h3>
+                    <div class="checklist-item">
+                        <label>7. Proper flow/operation</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>8. Leaks/corrosion</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>9. Clean-outs in place</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>10. Back water/check valve</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>📹 Video Inspection</h3>
+                    <div class="checklist-item">
+                        <label>11. Line free or obstruction</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>12. Pipe offset / sag</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>13. Outside cleanout available</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'general')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'general')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>🔥 Gas Meter Inspection</h3>
+                    <div class="checklist-item" style="background: #fff9e6;">
+                        <label style="font-weight: 600;">Gas line size</label>
+                        <div style="display: flex; gap: 5px;">
+                            <button class="size-btn" onclick="selectSize(this, 'gas-size', 'general')" data-size="3/4">3/4"</button>
+                            <button class="size-btn" onclick="selectSize(this, 'gas-size', 'general')" data-size="1">1"</button>
+                            <button class="size-btn" onclick="selectSize(this, 'gas-size', 'general')" data-size="1-1/4">1¼"</button>
+                            <button class="size-btn" onclick="selectSize(this, 'gas-size', 'general')" data-size="1-1/2">1½"</button>
+                            <button class="size-btn" onclick="selectSize(this, 'gas-size', 'general')" data-size="2">2"</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>Earthquake valve present</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'general')">✓</button>
                             <button class="status-btn" onclick="setStatus(this, 'warning', 'general')">⚠</button>
@@ -1232,7 +1376,7 @@
                     <h3>📝 General System Notes</h3>
                     <textarea 
                         id="general-notes" 
-                        placeholder="Enter notes about overall plumbing condition, main shut-off location, water quality issues, etc."
+                        placeholder="Enter notes about overall plumbing condition, main shut-off location, water quality issues, gas meter location, video inspection findings, etc."
                         style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
                     ></textarea>
                 </div>
@@ -1334,6 +1478,26 @@
             evaluationData[roomId][label] = status;
         }
         
+        // Select size for pipe measurements
+        function selectSize(button, sizeType, roomId) {
+            const parent = button.parentElement;
+            const buttons = parent.querySelectorAll('.size-btn');
+            
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            button.classList.add('selected');
+            
+            if (!evaluationData[roomId]) {
+                evaluationData[roomId] = {};
+            }
+            
+            const size = button.getAttribute('data-size');
+            const label = button.closest('.checklist-item').querySelector('label').textContent;
+            evaluationData[roomId][label] = size + '"';
+        }
+        
         // Handle photos
         function handlePhotos(sectionId, input) {
             const files = input.files;
@@ -1391,11 +1555,14 @@
             
             for (const room in evaluationData) {
                 for (const item in evaluationData[room]) {
-                    totalChecked++;
                     const status = evaluationData[room][item];
-                    if (status === 'pass') totalPassed++;
-                    else if (status === 'warning') totalWarnings++;
-                    else if (status === 'fail') totalFailed++;
+                    // Only count items with pass/warning/fail status (not size selections)
+                    if (status === 'pass' || status === 'warning' || status === 'fail' || status === 'na') {
+                        totalChecked++;
+                        if (status === 'pass') totalPassed++;
+                        else if (status === 'warning') totalWarnings++;
+                        else if (status === 'fail') totalFailed++;
+                    }
                 }
             }
             
@@ -1412,6 +1579,9 @@
                 photoData = {};
                 document.querySelectorAll('.status-btn').forEach(btn => {
                     btn.classList.remove('pass', 'fail', 'warning', 'na');
+                });
+                document.querySelectorAll('.size-btn').forEach(btn => {
+                    btn.classList.remove('selected');
                 });
                 document.querySelectorAll('.photo-preview-container').forEach(c => {
                     c.innerHTML = '';
@@ -1467,7 +1637,7 @@
             alert('Evaluation saved! File downloaded.');
         }
         
-        // Generate report
+        // Generate report with photos
         function generateReport() {
             const jobNumber = document.getElementById('jobNumber').value || 'N/A';
             const jobDate = document.getElementById('jobDate').value || 'N/A';
@@ -1542,7 +1712,12 @@
                 // Add evaluation items
                 for (const item in evaluationData[room]) {
                     const status = evaluationData[room][item];
-                    report += `<p class="${status}">${item}: ${status.toUpperCase()}</p>`;
+                    if (status === 'pass' || status === 'warning' || status === 'fail' || status === 'na') {
+                        report += `<p class="${status}">${item}: ${status.toUpperCase()}</p>`;
+                    } else {
+                        // This is a size selection
+                        report += `<p><strong>${item}:</strong> ${status}</p>`;
+                    }
                 }
                 
                 // Add notes if they exist
@@ -1576,11 +1751,13 @@
             
             for (const room in evaluationData) {
                 for (const item in evaluationData[room]) {
-                    totalChecked++;
                     const status = evaluationData[room][item];
-                    if (status === 'pass') totalPassed++;
-                    else if (status === 'warning') totalWarnings++;
-                    else if (status === 'fail') totalFailed++;
+                    if (status === 'pass' || status === 'warning' || status === 'fail' || status === 'na') {
+                        totalChecked++;
+                        if (status === 'pass') totalPassed++;
+                        else if (status === 'warning') totalWarnings++;
+                        else if (status === 'fail') totalFailed++;
+                    }
                 }
             }
             
@@ -1640,11 +1817,13 @@
             
             for (const room in evaluationData) {
                 for (const item in evaluationData[room]) {
-                    totalChecked++;
                     const status = evaluationData[room][item];
-                    if (status === 'pass') totalPassed++;
-                    else if (status === 'warning') totalWarnings++;
-                    else if (status === 'fail') totalFailed++;
+                    if (status === 'pass' || status === 'warning' || status === 'fail' || status === 'na') {
+                        totalChecked++;
+                        if (status === 'pass') totalPassed++;
+                        else if (status === 'warning') totalWarnings++;
+                        else if (status === 'fail') totalFailed++;
+                    }
                 }
             }
             
@@ -1669,7 +1848,12 @@
                 
                 for (const item in evaluationData[room]) {
                     const status = evaluationData[room][item];
-                    emailBody += `${item}: ${status.toUpperCase()}\n`;
+                    if (status === 'pass' || status === 'warning' || status === 'fail' || status === 'na') {
+                        emailBody += `${item}: ${status.toUpperCase()}\n`;
+                    } else {
+                        // This is a size selection
+                        emailBody += `${item}: ${status}\n`;
+                    }
                 }
                 
                 // Add notes if they exist
