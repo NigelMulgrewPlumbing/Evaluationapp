@@ -1481,13 +1481,41 @@
                         body { font-family: Arial; max-width: 800px; margin: 20px auto; }
                         h1 { color: #2c3e50; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
                         .header { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-                        .section { margin: 20px 0; }
+                        .section { margin: 20px 0; page-break-inside: avoid; }
                         .room-name { color: #667eea; font-weight: bold; font-size: 1.1em; margin-top: 15px; }
                         .pass { color: #28a745; }
                         .warning { color: #ffc107; }
                         .fail { color: #dc3545; }
                         .na { color: #6c757d; }
-                        @media print { .no-print { display: none; } }
+                        .photo-grid { 
+                            display: grid; 
+                            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+                            gap: 10px; 
+                            margin: 15px 0;
+                            page-break-inside: avoid;
+                        }
+                        .photo-item { 
+                            border: 1px solid #dee2e6; 
+                            border-radius: 5px; 
+                            overflow: hidden;
+                        }
+                        .photo-item img { 
+                            width: 100%; 
+                            height: auto; 
+                            display: block;
+                        }
+                        .notes-box {
+                            margin-top: 15px; 
+                            padding: 10px; 
+                            background: #fff3cd; 
+                            border-radius: 5px;
+                            page-break-inside: avoid;
+                        }
+                        @media print { 
+                            .no-print { display: none; }
+                            .section { page-break-inside: avoid; }
+                            .photo-grid { page-break-inside: avoid; }
+                        }
                     </style>
                 </head>
                 <body>
@@ -1496,10 +1524,11 @@
                         <p><strong>Job #:</strong> ${jobNumber}</p>
                         <p><strong>Date:</strong> ${jobDate}</p>
                         <p><strong>Technician:</strong> ${technician}</p>
+                        <p><strong>Address:</strong> 1127 Palmetto Ave, Pacifica CA | Phone: 650-557-0285</p>
                     </div>
             `;
             
-            // Add room names and evaluation results
+            // Add room names and evaluation results with photos
             for (const room in evaluationData) {
                 const roomNameInput = document.getElementById(`${room}-name`);
                 const roomName = roomNameInput ? roomNameInput.value : room;
@@ -1510,6 +1539,7 @@
                 }
                 report += `<h2>${room.toUpperCase()}</h2>`;
                 
+                // Add evaluation items
                 for (const item in evaluationData[room]) {
                     const status = evaluationData[room][item];
                     report += `<p class="${status}">${item}: ${status.toUpperCase()}</p>`;
@@ -1518,22 +1548,49 @@
                 // Add notes if they exist
                 const notesTextarea = document.getElementById(`${room}-notes`);
                 if (notesTextarea && notesTextarea.value) {
-                    report += `<div style="margin-top: 15px; padding: 10px; background: #fff3cd; border-radius: 5px;">`;
+                    report += `<div class="notes-box">`;
                     report += `<strong>Notes:</strong> ${notesTextarea.value}`;
+                    report += `</div>`;
+                }
+                
+                // Add photos for this section if they exist
+                if (photoData[room] && photoData[room].length > 0) {
+                    report += `<h4>Photos (${photoData[room].length}):</h4>`;
+                    report += `<div class="photo-grid">`;
+                    for (const photo of photoData[room]) {
+                        report += `<div class="photo-item">`;
+                        report += `<img src="${photo.data}" alt="${room} photo">`;
+                        report += `</div>`;
+                    }
                     report += `</div>`;
                 }
                 
                 report += `</div>`;
             }
             
-            // Add photo count
-            let totalPhotos = 0;
-            for (const section in photoData) {
-                totalPhotos += photoData[section].length;
+            // Add summary statistics
+            let totalChecked = 0;
+            let totalPassed = 0;
+            let totalWarnings = 0;
+            let totalFailed = 0;
+            
+            for (const room in evaluationData) {
+                for (const item in evaluationData[room]) {
+                    totalChecked++;
+                    const status = evaluationData[room][item];
+                    if (status === 'pass') totalPassed++;
+                    else if (status === 'warning') totalWarnings++;
+                    else if (status === 'fail') totalFailed++;
+                }
             }
-            if (totalPhotos > 0) {
-                report += `<p><strong>Photos attached:</strong> ${totalPhotos}</p>`;
-            }
+            
+            report += `<div class="section">`;
+            report += `<h2>Summary Statistics</h2>`;
+            report += `<p><strong>Total Items Evaluated:</strong> ${totalChecked}</p>`;
+            report += `<p class="pass"><strong>Passed:</strong> ${totalPassed}</p>`;
+            report += `<p class="warning"><strong>Warnings:</strong> ${totalWarnings}</p>`;
+            report += `<p class="fail"><strong>Failed:</strong> ${totalFailed}</p>`;
+            report += `</div>`;
             
             // Add recommendations
             const recommendations = document.getElementById('recommendations').value;
@@ -1541,9 +1598,17 @@
                 report += `<div class="section"><h2>Recommendations</h2><p>${recommendations}</p></div>`;
             }
             
+            // Add footer
+            report += `<div class="section" style="margin-top: 40px; padding-top: 20px; border-top: 2px solid #dee2e6;">`;
+            report += `<p style="text-align: center; color: #6c757d;">`;
+            report += `Report generated on ${new Date().toLocaleString()}<br>`;
+            report += `Nigel Mulgrew Plumbing, Inc. - Licensed & Insured`;
+            report += `</p></div>`;
+            
             report += `
-                    <div class="no-print" style="margin-top: 30px;">
-                        <button onclick="window.print()">Print Report</button>
+                    <div class="no-print" style="margin-top: 30px; text-align: center;">
+                        <button onclick="window.print()" style="padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px;">🖨️ Print Report</button>
+                        <button onclick="window.close()" style="padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-left: 10px;">Close</button>
                     </div>
                 </body>
                 </html>
@@ -1552,6 +1617,111 @@
             const reportWindow = window.open('', '_blank');
             reportWindow.document.write(report);
             reportWindow.document.close();
+        }
+        
+        // Email report function
+        function emailReport() {
+            const jobNumber = document.getElementById('jobNumber').value || 'N/A';
+            const jobDate = document.getElementById('jobDate').value || new Date().toLocaleDateString();
+            const technician = document.getElementById('technician').value || 'N/A';
+            
+            // Create text version of report for email body
+            let emailBody = `PLUMBING EVALUATION REPORT\n`;
+            emailBody += `=============================\n\n`;
+            emailBody += `Job Number: ${jobNumber}\n`;
+            emailBody += `Date: ${jobDate}\n`;
+            emailBody += `Technician: ${technician}\n\n`;
+            
+            // Summary statistics
+            let totalChecked = 0;
+            let totalPassed = 0;
+            let totalWarnings = 0;
+            let totalFailed = 0;
+            
+            for (const room in evaluationData) {
+                for (const item in evaluationData[room]) {
+                    totalChecked++;
+                    const status = evaluationData[room][item];
+                    if (status === 'pass') totalPassed++;
+                    else if (status === 'warning') totalWarnings++;
+                    else if (status === 'fail') totalFailed++;
+                }
+            }
+            
+            emailBody += `SUMMARY\n`;
+            emailBody += `---------\n`;
+            emailBody += `Total Items Checked: ${totalChecked}\n`;
+            emailBody += `Passed: ${totalPassed}\n`;
+            emailBody += `Warnings: ${totalWarnings}\n`;
+            emailBody += `Failed: ${totalFailed}\n\n`;
+            
+            // Add evaluation details
+            for (const room in evaluationData) {
+                const roomNameInput = document.getElementById(`${room}-name`);
+                const roomName = roomNameInput ? roomNameInput.value : '';
+                
+                emailBody += `${room.toUpperCase()}`;
+                if (roomName) {
+                    emailBody += ` - ${roomName}`;
+                }
+                emailBody += `\n`;
+                emailBody += `--------------------------\n`;
+                
+                for (const item in evaluationData[room]) {
+                    const status = evaluationData[room][item];
+                    emailBody += `${item}: ${status.toUpperCase()}\n`;
+                }
+                
+                // Add notes if they exist
+                const notesTextarea = document.getElementById(`${room}-notes`);
+                if (notesTextarea && notesTextarea.value) {
+                    emailBody += `Notes: ${notesTextarea.value}\n`;
+                }
+                
+                emailBody += `\n`;
+            }
+            
+            // Add general recommendations
+            const recommendations = document.getElementById('recommendations').value;
+            if (recommendations) {
+                emailBody += `RECOMMENDATIONS\n`;
+                emailBody += `----------------\n`;
+                emailBody += `${recommendations}\n\n`;
+            }
+            
+            // Photo count
+            let totalPhotos = 0;
+            for (const section in photoData) {
+                totalPhotos += photoData[section].length;
+            }
+            if (totalPhotos > 0) {
+                emailBody += `Note: ${totalPhotos} photos were taken during this evaluation.\n`;
+                emailBody += `Photos must be attached separately or accessed from saved file.\n\n`;
+            }
+            
+            emailBody += `\n---\nGenerated by Nigel Mulgrew Plumbing Evaluation System`;
+            
+            // Create mailto link
+            const subject = `Plumbing Evaluation Report - Job #${jobNumber} - ${jobDate}`;
+            const recipients = 'andrew@nigelmulgrewplumbing.com,info@nigelmulgrewplumbing.com';
+            
+            // Encode for URL
+            const mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            
+            // Create and click link
+            const link = document.createElement('a');
+            link.href = mailtoLink;
+            link.click();
+            
+            // Also save the data file
+            saveData();
+            
+            // Alert user about photos
+            if (totalPhotos > 0) {
+                alert(`Email client opened with report. Please note:\n\n1. The report text has been added to your email\n2. ${totalPhotos} photos were taken - please attach the saved JSON file or photos separately\n3. The evaluation data has been saved to your downloads folder`);
+            } else {
+                alert('Email client opened with report. The evaluation data has also been saved to your downloads folder.');
+            }
         }
         
         // Initialize app when page loads
