@@ -393,6 +393,7 @@
             <button class="tab" onclick="showSection('basement')">Basement/Utility</button>
             <button class="tab" onclick="showSection('garage')">Garage/Yard</button>
             <button class="tab" onclick="showSection('general')">General</button>
+            <button class="tab" onclick="showSection('other')">Other</button>
             <button class="tab" onclick="showSection('summary')">Summary</button>
         </div>
         
@@ -447,6 +448,13 @@
                 </div>
             </div>
             
+            <div id="other" class="section">
+                <h2 style="font-size: 18px; margin-bottom: 15px;">Other Areas</h2>
+                <div id="other-content">
+                    <!-- Other checklist will be added here -->
+                </div>
+            </div>
+            
             <div id="summary" class="section">
                 <h2 style="font-size: 18px; margin-bottom: 15px;">Evaluation Summary</h2>
                 <div class="stats">
@@ -496,6 +504,7 @@
             document.getElementById('basement-content').innerHTML = getBasementChecklist();
             document.getElementById('garage-content').innerHTML = getGarageChecklist();
             document.getElementById('general-content').innerHTML = getGeneralChecklist();
+            document.getElementById('other-content').innerHTML = getOtherChecklist();
             
             // Set today's date
             document.getElementById('jobDate').valueAsDate = new Date();
@@ -778,7 +787,7 @@
             `;
         }
         
-        // Kitchen checklist - COMPLETE 16 ITEMS
+        // Kitchen checklist - COMPLETE 17 ITEMS
         function getKitchenChecklist(num) {
             return `
                 <input type="text" class="room-name-input" id="kitchen-${num}-name" placeholder="Enter kitchen name/location">
@@ -988,104 +997,6 @@
                         </div>
                     </div>
                     <div class="checklist-item">
-                        <label>2. Faucet mounted / secure</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                    <div class="checklist-item">
-                        <label>3. Handles</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                    <div class="checklist-item">
-                        <label>4. Drain flow</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                    <div class="checklist-item">
-                        <label>5. Trap & tubular piping</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                    <div class="checklist-item">
-                        <label>6. Supplies</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                    <div class="checklist-item">
-                        <label>7. Emergency shut-off valve</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                    <div class="checklist-item">
-                        <label>8. Strainers</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="checklist-group">
-                    <h3>WASHING MACHINE</h3>
-                    <div class="checklist-item">
-                        <label>9. Hoses / hot & cold</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                    <div class="checklist-item">
-                        <label>10. Emergency shut-off valve</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="checklist-group">
-                    <h3>DRYER</h3>
-                    <div class="checklist-item">
-                        <label>11. Gas supply</label>
-                        <div class="status-buttons">
-                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
-                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
-                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
-                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
-                        </div>
-                    </div>
-                    <div class="checklist-item">
                         <label>12. Properly vented</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
@@ -1107,7 +1018,7 @@
             `;
         }
         
-        // Basement/Utility checklist
+        // Basement/Utility checklist - COMPLETE 18 ITEMS
         function getBasementChecklist() {
             return `
                 <input type="text" class="room-name-input" id="basement-name" placeholder="Enter location">
@@ -1119,9 +1030,9 @@
                 </div>
                 
                 <div class="checklist-group">
-                    <h3>Water Heater & Utilities</h3>
+                    <h3>Hot Water Heater</h3>
                     <div class="checklist-item">
-                        <label>Water heater condition</label>
+                        <label>1. Emergency water shut-off</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
                             <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
@@ -1130,7 +1041,7 @@
                         </div>
                     </div>
                     <div class="checklist-item">
-                        <label>Temperature & pressure relief valve</label>
+                        <label>2. Drain valve</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
                             <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
@@ -1139,7 +1050,146 @@
                         </div>
                     </div>
                     <div class="checklist-item">
-                        <label>Sump pump operation</label>
+                        <label>3. Safety relief valve</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>4. Proper temperature range</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>5. Burner assembly clean</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>6. Gas / electric supply</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>7. Emergency gas shut-off</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>8. Draft / ventilation</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>9. Flu piping</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>10. CO2 detector</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>Sump Pump</h3>
+                    <div class="checklist-item">
+                        <label>11. Pit clean</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>12. Pump operation</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>13. Discharge piping</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>14. Check valve</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>15. Cover secure</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>16. Piping anchored</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>17. Back-up system</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'basement')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'basement')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>18. Back-up system condition</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'basement')">✓</button>
                             <button class="status-btn" onclick="setStatus(this, 'warning', 'basement')">⚠</button>
@@ -1160,7 +1210,7 @@
             `;
         }
         
-        // Garage/Yard checklist
+        // Garage/Yard checklist - COMPLETE 10 ITEMS  
         function getGarageChecklist() {
             return `
                 <input type="text" class="room-name-input" id="garage-name" placeholder="Enter location">
@@ -1172,9 +1222,9 @@
                 </div>
                 
                 <div class="checklist-group">
-                    <h3>Outdoor Faucets</h3>
+                    <h3>(D) GARAGE / YARD - HOSE FAUCET #1</h3>
                     <div class="checklist-item">
-                        <label>Hose bib operation</label>
+                        <label>1. Shut-off operation</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
                             <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
@@ -1183,7 +1233,83 @@
                         </div>
                     </div>
                     <div class="checklist-item">
-                        <label>Vacuum breaker present</label>
+                        <label>2. Vacuum breaker</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>3. Sealed and anchored</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>4. Anti-siphon device</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>5. Drainable shut-off</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>HOSE FAUCET #2</h3>
+                    <div class="checklist-item">
+                        <label>6. Shut-off operation</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>7. Vacuum breaker</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>8. Sealed and anchored</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>9. Anti-siphon device</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'garage')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'garage')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>10. Drainable shut-off</label>
                         <div class="status-buttons">
                             <button class="status-btn" onclick="setStatus(this, 'pass', 'garage')">✓</button>
                             <button class="status-btn" onclick="setStatus(this, 'warning', 'garage')">⚠</button>
@@ -1208,7 +1334,7 @@
         function getGeneralChecklist() {
             return `
                 <div class="checklist-group">
-                    <h3>(G) GENERAL - WATER SUPPLY PIPING</h3>
+                    <h3>(E) GENERAL - WATER SUPPLY PIPING</h3>
                     <div class="checklist-item">
                         <label>1. Proper flow / operation</label>
                         <div class="status-buttons">
@@ -1331,6 +1457,82 @@
                     <h3>General Notes</h3>
                     <textarea 
                         id="general-notes" 
+                        placeholder="Enter notes"
+                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
+                    ></textarea>
+                </div>
+            `;
+        }
+        
+        // Other checklist - NEW SECTION 6 ITEMS
+        function getOtherChecklist() {
+            return `
+                <div class="checklist-group">
+                    <h3>(G) OTHER - FIREPLACE</h3>
+                    <div class="checklist-item">
+                        <label>1. Gas service</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'other')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'other')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'other')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'other')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>2. Log lighter</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'other')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'other')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'other')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'other')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>3. Gas logs</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'other')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'other')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'other')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'other')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>WET BAR</h3>
+                    <div class="checklist-item">
+                        <label>4. Sink</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'other')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'other')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'other')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'other')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>5. Faucet</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'other')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'other')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'other')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'other')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>6. Drain</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'other')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'other')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'other')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'other')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
+                    <h3>Other Notes</h3>
+                    <textarea 
+                        id="other-notes" 
                         placeholder="Enter notes"
                         style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
                     ></textarea>
@@ -1666,4 +1868,102 @@
         window.onload = initApp;
     </script>
 </body>
-</html>
+</html>" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>2. Faucet mounted / secure</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>3. Handles</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>4. Drain flow</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>5. Trap & tubular piping</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>6. Supplies</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>7. Emergency shut-off valve</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>8. Strainers</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>WASHING MACHINE</h3>
+                    <div class="checklist-item">
+                        <label>9. Hoses / hot & cold</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                    <div class="checklist-item">
+                        <label>10. Emergency shut-off valve</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn" onclick="setStatus(this, 'fail', 'laundry')">✗</button>
+                            <button class="status-btn" onclick="setStatus(this, 'na', 'laundry')">-</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist-group">
+                    <h3>DRYER</h3>
+                    <div class="checklist-item">
+                        <label>11. Gas supply</label>
+                        <div class="status-buttons">
+                            <button class="status-btn" onclick="setStatus(this, 'pass', 'laundry')">✓</button>
+                            <button class="status-btn" onclick="setStatus(this, 'warning', 'laundry')">⚠</button>
+                            <button class="status-btn
