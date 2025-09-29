@@ -7,6 +7,8 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Plumbing Eval">
     <title>Plumbing Evaluation - Nigel Mulgrew Plumbing</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
         * {
@@ -521,8 +523,8 @@
         <div id="tabsContainer"></div>
         
         <div class="action-buttons">
-            <button class="btn btn-primary" onclick="saveJSON()">💾 Save JSON</button>
-            <button class="btn btn-success" onclick="emailReport()">📧 Email Report</button>
+            <button class="btn btn-primary" onclick="savePDF()">📄 Save PDF</button>
+            <button class="btn btn-success" onclick="emailPDF()">📧 Email PDF</button>
             <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All</button>
         </div>
     </div>
@@ -1113,42 +1115,429 @@
             URL.revokeObjectURL(url);
         }
 
-        function emailReport() {
-            let report = 'PLUMBING EVALUATION REPORT\n';
-            report += 'Date: ' + new Date().toLocaleString() + '\n\n';
+        async function savePDF() {
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
             
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const margin = 15;
+            const contentWidth = pageWidth - (2 * margin);
+            let yPosition = margin;
+
+            // Helper function to check if we need a new page
+            function checkNewPage(heightNeeded) {
+                if (yPosition + heightNeeded > pageHeight - margin) {
+                    pdf.addPage();
+                    yPosition = margin;
+                    return true;
+                }
+                return false;
+            }
+
+            // Header
+            pdf.setFillColor(44, 62, 80);
+            pdf.rect(0, 0, pageWidth, 35, 'F');
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFontSize(22);
+            pdf.text('Plumbing Evaluation Report', pageWidth / 2, 15, { align: 'center' });
+            pdf.setFontSize(10);
+            pdf.text('Nigel Mulgrew Plumbing, Inc.', pageWidth / 2, 23, { align: 'center' });
+            pdf.text(new Date().toLocaleString(), pageWidth / 2, 29, { align: 'center' });
+            
+            yPosition = 45;
+
+            // Summary Section
+            pdf.setTextColor(0, 0, 0);
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Summary', margin, yPosition);
+            yPosition += 10;
+
+            let totalItems = 0;
+            let goodCount = 0;
+            let fairCount = 0;
+            let poorCount = 0;
+            let notEvaluated = 0;
+            let totalPhotos = 0;
+
+            Object.values(evaluationData).forEach(roomData => {
+                Object.values(roomData.items).forEach(item => {
+                    totalItems++;
+                    if (item.condition === 'good') goodCount++;
+                    else if (item.condition === 'fair') fairCount++;
+                    else if (item.condition === 'poor') poorCount++;
+                    else notEvaluated++;
+                });
+                totalPhotos += roomData.photos.length;
+            });
+
+            pdf.setFont(undefined, 'normal');
+            pdf.setFontSize(11);
+            pdf.text(`Total Items Evaluated: ${totalItems}`, margin, yPosition);
+            yPosition += 6;
+            pdf.setTextColor(40, 167, 69);
+            pdf.text(`Good Condition: ${goodCount}`, margin, yPosition);
+            yPosition += 6;
+            pdf.setTextColor(255, 193, 7);
+            pdf.text(`Fair Condition: ${fairCount}`, margin, yPosition);
+            yPosition += 6;
+            pdf.setTextColor(220, 53, 69);
+            pdf.text(`Poor Condition: ${poorCount}`, margin, yPosition);
+            yPosition += 6;
+            pdf.setTextColor(108, 117, 125);
+            pdf.text(`Not Evaluated: ${notEvaluated}`, margin, yPosition);
+            yPosition += 6;
+            pdf.setTextColor(102, 126, 234);
+            pdf.text(`Total Photos: ${totalPhotos}`, margin, yPosition);
+            yPosition += 12;
+
+            // Issues Found Section
+            pdf.setTextColor(0, 0, 0);
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            checkNewPage(20);
+            pdf.text('Issues Found', margin, yPosition);
+            yPosition += 10;
+
             let issuesFound = [];
-            
             Object.values(evaluationData).forEach(roomData => {
                 Object.entries(roomData.items).forEach(([index, item]) => {
                     if (item.condition === 'fair' || item.condition === 'poor') {
-                        let issue = `${roomData.name} - ${item.title}: ${item.condition.toUpperCase()}`;
-                        if (item.notes) {
-                            issue += ` (${item.notes})`;
-                        }
-                        issuesFound.push(issue);
+                        issuesFound.push({
+                            room: roomData.name,
+                            item: item.title,
+                            condition: item.condition,
+                            notes: item.notes
+                        });
                     }
                 });
             });
-            
-            if (issuesFound.length > 0) {
-                report += 'ISSUES FOUND:\n\n';
-                issuesFound.forEach((issue, i) => {
-                    report += `${i + 1}. ${issue}\n`;
-                });
+
+            if (issuesFound.length === 0) {
+                pdf.setFont(undefined, 'normal');
+                pdf.setFontSize(11);
+                pdf.setTextColor(40, 167, 69);
+                pdf.text('No significant issues found!', margin, yPosition);
+                yPosition += 10;
             } else {
-                report += 'No significant issues found.\n';
+                pdf.setFont(undefined, 'normal');
+                pdf.setFontSize(10);
+                
+                issuesFound.forEach((issue, index) => {
+                    checkNewPage(25);
+                    
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.setFont(undefined, 'bold');
+                    const issueText = `${index + 1}. ${issue.room} - ${issue.item}`;
+                    pdf.text(issueText, margin, yPosition);
+                    yPosition += 5;
+                    
+                    pdf.setFont(undefined, 'normal');
+                    if (issue.condition === 'poor') {
+                        pdf.setTextColor(220, 53, 69);
+                    } else {
+                        pdf.setTextColor(255, 193, 7);
+                    }
+                    pdf.text(`Condition: ${issue.condition.toUpperCase()}`, margin + 5, yPosition);
+                    yPosition += 5;
+                    
+                    if (issue.notes) {
+                        pdf.setTextColor(60, 60, 60);
+                        const lines = pdf.splitTextToSize(`Notes: ${issue.notes}`, contentWidth - 10);
+                        lines.forEach(line => {
+                            checkNewPage(5);
+                            pdf.text(line, margin + 5, yPosition);
+                            yPosition += 5;
+                        });
+                    }
+                    
+                    yPosition += 3;
+                });
             }
+
+            yPosition += 10;
+
+            // Detailed Evaluation by Room
+            pdf.setTextColor(0, 0, 0);
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            checkNewPage(20);
+            pdf.text('Detailed Evaluation', margin, yPosition);
+            yPosition += 10;
+
+            Object.values(evaluationData).forEach(roomData => {
+                checkNewPage(20);
+                
+                // Room header
+                pdf.setFontSize(14);
+                pdf.setFont(undefined, 'bold');
+                pdf.setTextColor(102, 126, 234);
+                pdf.text(roomData.name, margin, yPosition);
+                yPosition += 8;
+
+                // Room items
+                pdf.setFontSize(9);
+                pdf.setFont(undefined, 'normal');
+                
+                Object.entries(roomData.items).forEach(([index, item]) => {
+                    checkNewPage(10);
+                    
+                    let conditionColor = [108, 117, 125]; // gray for not evaluated
+                    let conditionText = 'Not Evaluated';
+                    
+                    if (item.condition === 'good') {
+                        conditionColor = [40, 167, 69];
+                        conditionText = 'GOOD';
+                    } else if (item.condition === 'fair') {
+                        conditionColor = [255, 193, 7];
+                        conditionText = 'FAIR';
+                    } else if (item.condition === 'poor') {
+                        conditionColor = [220, 53, 69];
+                        conditionText = 'POOR';
+                    }
+                    
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text(`${parseInt(index) + 1}. ${item.title}`, margin + 3, yPosition);
+                    
+                    pdf.setTextColor(...conditionColor);
+                    pdf.text(conditionText, margin + 100, yPosition);
+                    yPosition += 4;
+                    
+                    if (item.notes) {
+                        pdf.setTextColor(60, 60, 60);
+                        const lines = pdf.splitTextToSize(item.notes, contentWidth - 10);
+                        lines.forEach(line => {
+                            checkNewPage(4);
+                            pdf.text(line, margin + 8, yPosition);
+                            yPosition += 4;
+                        });
+                    }
+                    
+                    yPosition += 2;
+                });
+                
+                yPosition += 5;
+            });
+
+            // Add photos section indicator
+            if (totalPhotos > 0) {
+                checkNewPage(20);
+                pdf.setFontSize(14);
+                pdf.setFont(undefined, 'bold');
+                pdf.setTextColor(102, 126, 234);
+                pdf.text('Photos', margin, yPosition);
+                yPosition += 8;
+                pdf.setFontSize(10);
+                pdf.setFont(undefined, 'normal');
+                pdf.setTextColor(60, 60, 60);
+                pdf.text(`${totalPhotos} photos were taken during this evaluation.`, margin, yPosition);
+                yPosition += 6;
+                pdf.text('Photos are compressed and included on the following pages.', margin, yPosition);
+                yPosition += 10;
+
+                // Add photos
+                for (const roomData of Object.values(evaluationData)) {
+                    if (roomData.photos.length > 0) {
+                        checkNewPage(20);
+                        pdf.setFontSize(12);
+                        pdf.setFont(undefined, 'bold');
+                        pdf.setTextColor(102, 126, 234);
+                        pdf.text(`${roomData.name} Photos`, margin, yPosition);
+                        yPosition += 8;
+
+                        for (let i = 0; i < roomData.photos.length; i++) {
+                            const photo = roomData.photos[i];
+                            
+                            // Check if we need a new page for the photo
+                            const photoHeight = 100;
+                            if (checkNewPage(photoHeight + 10)) {
+                                // New page was added
+                            }
+                            
+                            try {
+                                const imgWidth = contentWidth;
+                                const imgHeight = 100;
+                                pdf.addImage(photo, 'JPEG', margin, yPosition, imgWidth, imgHeight);
+                                yPosition += imgHeight + 5;
+                                
+                                pdf.setFontSize(9);
+                                pdf.setFont(undefined, 'normal');
+                                pdf.setTextColor(108, 117, 125);
+                                pdf.text(`Photo ${i + 1} of ${roomData.photos.length}`, margin, yPosition);
+                                yPosition += 10;
+                            } catch (e) {
+                                console.error('Error adding photo to PDF:', e);
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Save the PDF
+            const fileName = `Plumbing_Evaluation_${new Date().toISOString().split('T')[0]}.pdf`;
+            pdf.save(fileName);
             
-            report += '\n\nFor full details, please download the JSON file.';
+            alert('PDF saved successfully!');
+        }
+
+        async function emailPDF() {
+            alert('Generating PDF... This may take a moment.');
             
-            const subject = 'Plumbing Evaluation - ' + new Date().toLocaleDateString();
-            const body = encodeURIComponent(report);
-            const mailto = `mailto:info@nigelmulgrewplumbing.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            const { jsPDF } = window.jspdf;
+            const pdf = new jsPDF('p', 'mm', 'a4');
             
-            window.location.href = mailto;
+            const pageWidth = pdf.internal.pageSize.getWidth();
+            const pageHeight = pdf.internal.pageSize.getHeight();
+            const margin = 15;
+            const contentWidth = pageWidth - (2 * margin);
+            let yPosition = margin;
+
+            function checkNewPage(heightNeeded) {
+                if (yPosition + heightNeeded > pageHeight - margin) {
+                    pdf.addPage();
+                    yPosition = margin;
+                    return true;
+                }
+                return false;
+            }
+
+            // Generate same PDF content
+            pdf.setFillColor(44, 62, 80);
+            pdf.rect(0, 0, pageWidth, 35, 'F');
+            pdf.setTextColor(255, 255, 255);
+            pdf.setFontSize(22);
+            pdf.text('Plumbing Evaluation Report', pageWidth / 2, 15, { align: 'center' });
+            pdf.setFontSize(10);
+            pdf.text('Nigel Mulgrew Plumbing, Inc.', pageWidth / 2, 23, { align: 'center' });
+            pdf.text(new Date().toLocaleString(), pageWidth / 2, 29, { align: 'center' });
             
-            alert('Opening email client...\n\nIf email doesn\'t open, please export the JSON file and attach it to your email manually.');
+            yPosition = 45;
+
+            // Summary
+            pdf.setTextColor(0, 0, 0);
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Summary', margin, yPosition);
+            yPosition += 10;
+
+            let totalItems = 0;
+            let goodCount = 0;
+            let fairCount = 0;
+            let poorCount = 0;
+
+            Object.values(evaluationData).forEach(roomData => {
+                Object.values(roomData.items).forEach(item => {
+                    totalItems++;
+                    if (item.condition === 'good') goodCount++;
+                    else if (item.condition === 'fair') fairCount++;
+                    else if (item.condition === 'poor') poorCount++;
+                });
+            });
+
+            pdf.setFont(undefined, 'normal');
+            pdf.setFontSize(11);
+            pdf.text(`Total Items: ${totalItems}`, margin, yPosition);
+            yPosition += 6;
+            pdf.setTextColor(40, 167, 69);
+            pdf.text(`Good: ${goodCount}`, margin, yPosition);
+            yPosition += 6;
+            pdf.setTextColor(255, 193, 7);
+            pdf.text(`Fair: ${fairCount}`, margin, yPosition);
+            yPosition += 6;
+            pdf.setTextColor(220, 53, 69);
+            pdf.text(`Poor: ${poorCount}`, margin, yPosition);
+            yPosition += 12;
+
+            // Issues
+            pdf.setTextColor(0, 0, 0);
+            pdf.setFontSize(16);
+            pdf.setFont(undefined, 'bold');
+            pdf.text('Issues Found', margin, yPosition);
+            yPosition += 10;
+
+            let issuesFound = [];
+            Object.values(evaluationData).forEach(roomData => {
+                Object.entries(roomData.items).forEach(([index, item]) => {
+                    if (item.condition === 'fair' || item.condition === 'poor') {
+                        issuesFound.push({
+                            room: roomData.name,
+                            item: item.title,
+                            condition: item.condition,
+                            notes: item.notes
+                        });
+                    }
+                });
+            });
+
+            if (issuesFound.length === 0) {
+                pdf.setFont(undefined, 'normal');
+                pdf.setFontSize(11);
+                pdf.setTextColor(40, 167, 69);
+                pdf.text('No significant issues found!', margin, yPosition);
+            } else {
+                pdf.setFont(undefined, 'normal');
+                pdf.setFontSize(10);
+                
+                issuesFound.forEach((issue, index) => {
+                    checkNewPage(20);
+                    
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.setFont(undefined, 'bold');
+                    pdf.text(`${index + 1}. ${issue.room} - ${issue.item}`, margin, yPosition);
+                    yPosition += 5;
+                    
+                    pdf.setFont(undefined, 'normal');
+                    if (issue.condition === 'poor') {
+                        pdf.setTextColor(220, 53, 69);
+                    } else {
+                        pdf.setTextColor(255, 193, 7);
+                    }
+                    pdf.text(`Condition: ${issue.condition.toUpperCase()}`, margin + 5, yPosition);
+                    yPosition += 5;
+                    
+                    if (issue.notes) {
+                        pdf.setTextColor(60, 60, 60);
+                        const lines = pdf.splitTextToSize(`Notes: ${issue.notes}`, contentWidth - 10);
+                        lines.forEach(line => {
+                            checkNewPage(5);
+                            pdf.text(line, margin + 5, yPosition);
+                            yPosition += 5;
+                        });
+                    }
+                    
+                    yPosition += 3;
+                });
+            }
+
+            // Convert PDF to base64 for attachment
+            const pdfData = pdf.output('dataurlstring');
+            
+            // Create mailto with instructions
+            const subject = 'Plumbing Evaluation Report - ' + new Date().toLocaleDateString();
+            const body = encodeURIComponent(
+                'Please find attached the plumbing evaluation report.\n\n' +
+                'Summary:\n' +
+                `Total Items: ${totalItems}\n` +
+                `Good: ${goodCount}\n` +
+                `Fair: ${fairCount}\n` +
+                `Poor: ${poorCount}\n\n` +
+                'Note: PDF has been saved to your device. Please attach it manually to this email.\n\n' +
+                'Best regards,\n' +
+                'Nigel Mulgrew Plumbing, Inc.'
+            );
+            
+            // Save PDF first
+            const fileName = `Plumbing_Evaluation_${new Date().toISOString().split('T')[0]}.pdf`;
+            pdf.save(fileName);
+            
+            // Then open email
+            setTimeout(() => {
+                const mailto = `mailto:info@nigelmulgrewplumbing.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+                window.location.href = mailto;
+                
+                alert('PDF saved to your device!\n\nEmail client opening - please attach the PDF file manually.');
+            }, 500);
             
             saveData();
         }
