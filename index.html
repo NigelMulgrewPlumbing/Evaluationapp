@@ -26,7 +26,6 @@
         .container {
             max-width: 1024px;
             margin: 0 auto;
-            margin-bottom: 20px;
             background: white;
             border-radius: 15px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.2);
@@ -50,355 +49,323 @@
             opacity: 0.9;
         }
         
-        .job-info {
-            background: #f8f9fa;
-            padding: 15px;
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-        }
-        
-        @media (min-width: 768px) {
-            .job-info {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-        
-        .job-info input {
-            padding: 10px;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .job-info input:focus {
-            outline: none;
-            border-color: #667eea;
-        }
-        
-        .tabs {
-            display: flex;
-            overflow-x: auto;
-            background: #e9ecef;
-            -webkit-overflow-scrolling: touch;
-        }
-        
-        .tab {
-            padding: 12px 20px;
-            background: transparent;
-            border: none;
-            cursor: pointer;
+        .storage-warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 12px;
+            margin: 10px 20px;
+            border-radius: 4px;
             font-size: 13px;
-            font-weight: 600;
-            color: #495057;
-            white-space: nowrap;
-            transition: all 0.3s;
-        }
-        
-        .tab.active {
-            background: white;
-            color: #667eea;
-        }
-        
-        .content {
-            padding: 20px;
-            min-height: 300px;
-            padding-bottom: 40px;
-        }
-        
-        .section {
             display: none;
         }
         
-        .section.active {
+        .storage-warning.show {
             display: block;
         }
         
-        .room-tabs {
+        .nav-tabs {
             display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .room-tab {
-            padding: 8px 16px;
+            overflow-x: auto;
             background: #f8f9fa;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
+            border-bottom: 2px solid #dee2e6;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .nav-tab {
+            padding: 15px 20px;
             cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-        }
-        
-        .room-tab.active {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-        
-        .room-tab.add-room {
-            background: #28a745;
-            color: white;
-            border-color: #28a745;
-        }
-        
-        .room-name-input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 2px solid #667eea;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
-            background: #f0f4ff;
-        }
-        
-        .room-name-input:focus {
-            outline: none;
-            border-color: #764ba2;
-            background: white;
-        }
-        
-        .checklist-group {
-            margin-bottom: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            padding: 15px;
-        }
-        
-        .checklist-group h3 {
-            color: #2c3e50;
-            font-size: 16px;
-            margin-bottom: 15px;
-        }
-        
-        .checklist-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 8px;
-            background: white;
-            border-radius: 8px;
-        }
-        
-        .checklist-item label {
-            flex: 1;
-            font-size: 14px;
-            color: #495057;
-        }
-        
-        .status-buttons {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .status-btn {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: 2px solid #dee2e6;
-            background: white;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .status-btn.pass {
-            background: #28a745;
-            border-color: #28a745;
-            color: white;
-        }
-        
-        .status-btn.warning {
-            background: #ffc107;
-            border-color: #ffc107;
-            color: white;
-        }
-        
-        .status-btn.fail {
-            background: #dc3545;
-            border-color: #dc3545;
-            color: white;
-        }
-        
-        .status-btn.na {
-            background: #6c757d;
-            border-color: #6c757d;
-            color: white;
-        }
-        
-        .photo-section {
-            background: white;
-            border-radius: 8px;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 2px dashed #dee2e6;
-        }
-        
-        .photo-upload-btn {
-            padding: 8px 16px;
-            background: #667eea;
-            color: white;
+            background: none;
             border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 600;
-        }
-        
-        .photo-input {
-            display: none;
-        }
-        
-        .photo-preview-container {
+            font-size: 14px;
+            white-space: nowrap;
+            color: #495057;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
             gap: 8px;
-            margin-top: 10px;
-        }
-        
-        .photo-preview {
             position: relative;
-            width: 80px;
-            height: 80px;
-            border-radius: 6px;
-            overflow: hidden;
-            border: 2px solid #dee2e6;
-            cursor: pointer;
         }
         
-        .photo-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        .nav-tab.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: white;
         }
         
-        .photo-preview:hover {
-            border-color: #667eea;
-            transform: scale(1.05);
-            transition: all 0.2s;
-        }
-        
-        .photo-remove {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            background: rgba(220, 53, 69, 0.9);
+        .tab-delete-btn {
+            background: #dc3545;
             color: white;
             border: none;
             border-radius: 50%;
             width: 20px;
             height: 20px;
+            font-size: 14px;
             cursor: pointer;
-            font-size: 12px;
-            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 5px;
         }
         
-        .photo-modal {
+        .tab-delete-btn:hover {
+            background: #c82333;
+        }
+        
+        .add-room-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            margin: 10px 20px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .add-room-btn:active {
+            background: #218838;
+        }
+        
+        .tab-content {
             display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
+            padding: 20px;
+            animation: fadeIn 0.3s;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .section-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            margin: -20px -20px 20px -20px;
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .rename-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid white;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        
+        .rename-btn:active {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .item {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .item-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .item-number {
+            background: #667eea;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .item-title {
+            flex: 1;
+            font-weight: 500;
+            font-size: 15px;
+            min-width: 200px;
+        }
+        
+        .condition-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .condition-btn {
+            padding: 8px 16px;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            touch-action: manipulation;
+        }
+        
+        .condition-btn.good {
+            border-color: #28a745;
+            color: #28a745;
+        }
+        
+        .condition-btn.good.active {
+            background: #28a745;
+            color: white;
+        }
+        
+        .condition-btn.fair {
+            border-color: #ffc107;
+            color: #ffc107;
+        }
+        
+        .condition-btn.fair.active {
+            background: #ffc107;
+            color: #000;
+        }
+        
+        .condition-btn.poor {
+            border-color: #dc3545;
+            color: #dc3545;
+        }
+        
+        .condition-btn.poor.active {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .item-notes {
+            margin-top: 10px;
+        }
+        
+        .item-notes textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+            font-size: 14px;
+        }
+        
+        .photo-section {
+            margin-top: 10px;
+            padding: 10px;
+            background: white;
+            border-radius: 6px;
+        }
+        
+        .photo-upload {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .photo-btn {
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .photo-btn:active {
+            background: #5568d3;
+        }
+        
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .photo-item {
+            position: relative;
+            padding-top: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .photo-item img {
+            position: absolute;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            overflow: auto;
+            object-fit: cover;
         }
         
-        .photo-modal-content {
-            margin: auto;
-            display: block;
-            max-width: 90%;
-            max-height: 85%;
-            margin-top: 30px;
-            animation: zoomIn 0.3s;
-        }
-        
-        @keyframes zoomIn {
-            from {transform: scale(0.8); opacity: 0;}
-            to {transform: scale(1); opacity: 1;}
-        }
-        
-        .photo-modal-close {
+        .photo-delete {
             position: absolute;
-            top: 15px;
-            right: 35px;
-            color: #f1f1f1;
-            font-size: 40px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        
-        .photo-modal-close:hover {
-            color: #ff6b6b;
-        }
-        
-        .photo-modal-caption {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 700px;
-            text-align: center;
-            color: #ccc;
-            padding: 10px 20px;
-        }
-        
-        .photo-modal-nav {
-            position: absolute;
-            top: 50%;
-            font-size: 30px;
+            top: 5px;
+            right: 5px;
+            background: rgba(220, 53, 69, 0.9);
             color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
             cursor: pointer;
-            padding: 10px;
-            background: rgba(0,0,0,0.5);
-            user-select: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
         }
         
-        .photo-modal-prev {
-            left: 10px;
-        }
-        
-        .photo-modal-next {
-            right: 10px;
-        }
-        
-        .photo-modal-nav:hover {
-            background: rgba(0,0,0,0.8);
-        }
-        
-        .photo-counter {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            color: white;
-            font-size: 14px;
-            background: rgba(0,0,0,0.5);
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        
-        .actions {
-            padding: 20px;
-            background: #f8f9fa;
+        .action-buttons {
+            position: sticky;
+            bottom: 0;
+            background: white;
+            padding: 15px 20px;
+            border-top: 2px solid #dee2e6;
             display: flex;
             gap: 10px;
             flex-wrap: wrap;
-            justify-content: center;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
         }
         
         .btn {
-            padding: 10px 20px;
+            flex: 1;
+            min-width: 120px;
+            padding: 12px 20px;
             border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 600;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: 500;
             cursor: pointer;
+            transition: all 0.2s;
+            touch-action: manipulation;
         }
         
         .btn-primary {
@@ -406,786 +373,626 @@
             color: white;
         }
         
+        .btn-primary:active {
+            background: #5568d3;
+        }
+        
         .btn-success {
             background: #28a745;
             color: white;
         }
         
-        .btn-secondary {
-            background: #6c757d;
+        .btn-success:active {
+            background: #218838;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
             color: white;
         }
         
-        .stats {
+        .btn-danger:active {
+            background: #c82333;
+        }
+        
+        .summary-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
         }
         
-        @media (min-width: 768px) {
-            .stats {
-                grid-template-columns: repeat(4, 1fr);
-            }
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 15px;
+        .summary-card {
+            background: #f8f9fa;
+            padding: 20px;
             border-radius: 8px;
             text-align: center;
-            border: 2px solid #e9ecef;
+            border-left: 4px solid #667eea;
         }
         
-        .stat-card h4 {
-            font-size: 12px;
-            color: #6c757d;
+        .summary-card h3 {
+            font-size: 32px;
+            color: #667eea;
             margin-bottom: 5px;
         }
         
-        .stat-card .value {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2c3e50;
-        }
-        
-        .recommendations {
-            margin-top: 20px;
-        }
-        
-        .recommendations textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 12px;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
+        .summary-card p {
+            color: #6c757d;
             font-size: 14px;
-            font-family: inherit;
-            resize: vertical;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-content img {
+            max-width: 100%;
+            max-height: 90vh;
+            object-fit: contain;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(220, 53, 69, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            color: #333;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .modal-prev {
+            left: 20px;
+        }
+        
+        .modal-next {
+            right: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .condition-group {
+                width: 100%;
+                margin-top: 10px;
+            }
+            
+            .condition-btn {
+                flex: 1;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>Nigel Mulgrew Plumbing, Inc.</h1>
-            <p>Home Plumbing Evaluation System</p>
-            <p style="margin-top: 5px;">1127 Palmetto Ave, Pacifica CA | 650-557-0285</p>
+            <h1>🔧 Plumbing Evaluation Form</h1>
+            <p>Nigel Mulgrew Plumbing, Inc. | Professional Assessment Tool</p>
         </div>
         
-        <div class="job-info">
-            <input type="text" id="jobNumber" placeholder="Job Number">
-            <input type="date" id="jobDate" placeholder="Date">
-            <input type="text" id="technician" placeholder="Technician Name">
+        <div class="storage-warning" id="storageWarning">
+            ⚠️ <strong>Storage Notice:</strong> Data is saved temporarily. Please export or email your report before closing this app!
         </div>
         
-        <div class="tabs">
-            <button class="tab active" onclick="showSection('bathrooms')">Bathrooms</button>
-            <button class="tab" onclick="showSection('kitchen')">Kitchen</button>
-            <button class="tab" onclick="showSection('laundry')">Laundry</button>
-            <button class="tab" onclick="showSection('basement')">Basement/Utility</button>
-            <button class="tab" onclick="showSection('garage')">Garage/Yard</button>
-            <button class="tab" onclick="showSection('general')">General</button>
-            <button class="tab" onclick="showSection('other')">Other</button>
-            <button class="tab" onclick="showSection('summary')">Summary</button>
-        </div>
+        <div class="nav-tabs" id="navTabs"></div>
         
-        <div class="content">
-            <div id="bathrooms" class="section active">
-                <h2 style="font-size: 18px; margin-bottom: 15px;">Bathroom Evaluation</h2>
-                <div class="room-tabs">
-                    <button class="room-tab active" onclick="showBathroom(1)">Bath #1</button>
-                    <button class="room-tab add-room" onclick="addBathroom()">+ Add Bath</button>
-                </div>
-                <div id="bathroom-1" class="room-content">
-                    <!-- Bathroom checklist will be added here -->
-                </div>
-            </div>
-            
-            <div id="kitchen" class="section">
-                <h2 style="font-size: 18px; margin-bottom: 15px;">Kitchen Evaluation</h2>
-                <div class="room-tabs">
-                    <button class="room-tab active" onclick="showKitchen(1)">Kitchen #1</button>
-                    <button class="room-tab add-room" onclick="addKitchen()">+ Add Kitchen</button>
-                </div>
-                <div id="kitchen-1" class="room-content">
-                    <!-- Kitchen checklist will be added here -->
-                </div>
-            </div>
-            
-            <div id="laundry" class="section">
-                <h2 style="font-size: 18px; margin-bottom: 15px;">Laundry Room Evaluation</h2>
-                <div id="laundry-content">
-                    <!-- Laundry checklist will be added here -->
-                </div>
-            </div>
-            
-            <div id="basement" class="section">
-                <h2 style="font-size: 18px; margin-bottom: 15px;">Basement / Utility Room</h2>
-                <div id="basement-content">
-                    <!-- Basement/Utility checklist will be added here -->
-                </div>
-            </div>
-            
-            <div id="garage" class="section">
-                <h2 style="font-size: 18px; margin-bottom: 15px;">Garage/Yard Evaluation</h2>
-                <div id="garage-content">
-                    <!-- Garage checklist will be added here -->
-                </div>
-            </div>
-            
-            <div id="general" class="section">
-                <h2 style="font-size: 18px; margin-bottom: 15px;">General Systems</h2>
-                <div id="general-content">
-                    <!-- General checklist will be added here -->
-                </div>
-            </div>
-            
-            <div id="other" class="section">
-                <h2 style="font-size: 18px; margin-bottom: 15px;">Other Areas</h2>
-                <div id="other-content">
-                    <!-- Other checklist will be added here -->
-                </div>
-            </div>
-            
-            <div id="summary" class="section">
-                <h2 style="font-size: 18px; margin-bottom: 15px;">Evaluation Summary</h2>
-                <div class="stats">
-                    <div class="stat-card">
-                        <h4>Total Checked</h4>
-                        <div class="value" id="totalChecked">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <h4>Passed</h4>
-                        <div class="value" style="color: #28a745;" id="totalPassed">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <h4>Warnings</h4>
-                        <div class="value" style="color: #ffc107;" id="totalWarnings">0</div>
-                    </div>
-                    <div class="stat-card">
-                        <h4>Failed</h4>
-                        <div class="value" style="color: #dc3545;" id="totalFailed">0</div>
-                    </div>
-                </div>
-                <div class="recommendations">
-                    <h3 style="font-size: 16px; margin-bottom: 10px;">Recommendations</h3>
-                    <textarea id="recommendations" placeholder="Enter recommendations..."></textarea>
-                </div>
-            </div>
-        </div>
+        <div id="tabsContainer"></div>
         
-        <div class="actions">
-            <button class="btn btn-secondary" onclick="clearAll()">Clear</button>
-            <button class="btn btn-primary" onclick="saveData()">Save</button>
-            <button class="btn btn-success" onclick="generateReport()">Report</button>
-            <button class="btn btn-success" onclick="emailReport()">Email</button>
+        <div class="action-buttons">
+            <button class="btn btn-primary" onclick="saveJSON()">💾 Save JSON</button>
+            <button class="btn btn-success" onclick="emailReport()">📧 Email Report</button>
+            <button class="btn btn-danger" onclick="clearAllData()">🗑️ Clear All</button>
         </div>
     </div>
     
+    <div class="modal" id="photoModal">
+        <button class="modal-close" onclick="closePhotoModal()">×</button>
+        <button class="modal-nav modal-prev" onclick="changePhoto(-1)">‹</button>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Photo">
+        </div>
+        <button class="modal-nav modal-next" onclick="changePhoto(1)">›</button>
+    </div>
+
     <script>
-        let bathroomCount = 1;
-        let kitchenCount = 1;
+        const sectionTemplates = {
+            bathrooms: {
+                title: 'Bathroom',
+                emoji: '🚽',
+                canAddMultiple: true,
+                items: [
+                    'Toilet flush', 'Toilet leaks', 'Toilet wobbles', 'Toilet wax ring',
+                    'Sink faucet operation', 'Sink drain', 'Sink leaks', 'Sink trap',
+                    'Shower/tub faucet', 'Shower/tub drain', 'Shower/tub leaks', 'Shower head',
+                    'Tub spout', 'Tub caulking', 'Floor drain', 'Exhaust fan',
+                    'Water pressure', 'Hot water temp', 'Angle stops', 'Supply lines',
+                    'Tile/grout condition', 'Caulking', 'Water damage', 'Ventilation',
+                    'Accessibility', 'Fixtures age', 'Overall bathroom'
+                ]
+            },
+            kitchen: {
+                title: 'Kitchen',
+                emoji: '🍳',
+                canAddMultiple: true,
+                items: [
+                    'Kitchen sink faucet', 'Kitchen sink drain', 'Kitchen sink leaks',
+                    'Garbage disposal', 'Dishwasher connection', 'Dishwasher drain',
+                    'Ice maker line', 'Pot filler', 'Kitchen sprayer',
+                    'Angle stops', 'Supply lines', 'Drain pipes',
+                    'Air gap', 'Soap dispenser', 'Water filter',
+                    'Caulking', 'Overall kitchen'
+                ]
+            },
+            laundry: {
+                title: 'Laundry',
+                emoji: '🧺',
+                canAddMultiple: false,
+                items: [
+                    'Washer hot valve', 'Washer cold valve', 'Washer drain',
+                    'Washer box', 'Hoses condition', 'Laundry sink faucet',
+                    'Laundry sink drain', 'Floor drain', 'Venting',
+                    'Water pressure', 'Shut-off valves', 'Overall laundry'
+                ]
+            },
+            basement: {
+                title: 'Basement/Utility',
+                emoji: '🔧',
+                canAddMultiple: false,
+                items: [
+                    'Main shut-off valve', 'Pressure regulator', 'Water heater',
+                    'Water heater age', 'Water heater venting', 'TPR valve',
+                    'Drain pan', 'Expansion tank', 'Gas lines',
+                    'Sump pump', 'Ejector pump', 'Floor drains',
+                    'Cleanouts', 'Pipe insulation', 'Pipe condition',
+                    'Foundation leaks', 'Sewer line', 'Overall basement'
+                ]
+            },
+            garage: {
+                title: 'Garage/Yard',
+                emoji: '🏡',
+                canAddMultiple: false,
+                items: [
+                    'Hose bibs', 'Hose bib leaks', 'Sprinkler system',
+                    'Sprinkler valves', 'Backflow preventer', 'Yard drains',
+                    'Sewer cleanout', 'Water meter', 'Main line',
+                    'Overall exterior'
+                ]
+            },
+            general: {
+                title: 'General',
+                emoji: '📋',
+                canAddMultiple: false,
+                items: [
+                    'Water quality', 'Water odor', 'Water color',
+                    'Overall pressure', 'Pipe material', 'Visible corrosion',
+                    'Signs of leaks', 'Water stains', 'Mold/mildew',
+                    'Code compliance', 'Safety issues', 'Overall assessment'
+                ]
+            },
+            other: {
+                title: 'Other',
+                emoji: '📝',
+                canAddMultiple: false,
+                items: [
+                    'Additional item 1', 'Additional item 2', 'Additional item 3',
+                    'Additional item 4', 'Additional item 5', 'Additional notes'
+                ]
+            }
+        };
+
+        let currentTab = 'bathrooms-0';
         let evaluationData = {};
-        let photoData = {};
+        let roomInstances = {};
         let currentPhotoViewing = null;
-        
-        // Initialize the app
+        let storageAvailable = false;
+
+        function checkStorage() {
+            try {
+                const testKey = '__storage_test__';
+                localStorage.setItem(testKey, 'test');
+                localStorage.removeItem(testKey);
+                storageAvailable = true;
+                return true;
+            } catch (e) {
+                storageAvailable = false;
+                document.getElementById('storageWarning').classList.add('show');
+                console.warn('localStorage not available:', e);
+                return false;
+            }
+        }
+
         function initApp() {
-            loadFromLocal();
-            
-            document.getElementById('bathroom-1').innerHTML = getBathroomChecklist(1);
-            document.getElementById('kitchen-1').innerHTML = getKitchenChecklist(1);
-            document.getElementById('laundry-content').innerHTML = getLaundryChecklist();
-            document.getElementById('basement-content').innerHTML = getBasementChecklist();
-            document.getElementById('garage-content').innerHTML = getGarageChecklist();
-            document.getElementById('general-content').innerHTML = getGeneralChecklist();
-            document.getElementById('other-content').innerHTML = getOtherChecklist();
-            
-            document.getElementById('jobDate').valueAsDate = new Date();
-            
-            rebuildPhotoPreview();
-        }
-        
-        // Bathroom checklist - COMPLETE 27 ITEMS
-        function getBathroomChecklist(num) {
-            let html = `
-                <input type="text" class="room-name-input" id="bath-${num}-name" placeholder="Enter bathroom name/location (e.g., Master Bath, Hall Bath)">
-                
-                <div class="photo-section">
-                    <input type="file" id="bath-${num}-photos" class="photo-input" multiple accept="image/*" onchange="handlePhotos('bath-${num}', this)">
-                    <button class="photo-upload-btn" onclick="document.getElementById('bath-${num}-photos').click()">Add Photos</button>
-                    <div id="bath-${num}-preview" class="photo-preview-container"></div>
-                </div>
-                
-                <div class="checklist-group">
-                    <h3>(A) BATHROOMS - WATER CLOSET</h3>`;
-            
-            const waterClosetItems = [
-                "1. Dye test - pass",
-                "2. Flush - pass", 
-                "3. Seat tight",
-                "4. Bolt covers tight",
-                "5. Base secure / level",
-                "6. Emergency shut-off valve",
-                "7. Supply tube",
-                "8. Anti-siphon fill valve - LOCATION"
-            ];
-            
-            for (let item of waterClosetItems) {
-                html += createChecklistItem(item, num, 'bath');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>LAVATORY SINK & FAUCET</h3>`;
-            
-            const lavatoryItems = [
-                "9. Leaks",
-                "10. Aerator",
-                "11. Faucet mounted / secure",
-                "12. Handles",
-                "13. Supplies",
-                "14. Emergency shut-off valve",
-                "15. Drain piping / flow",
-                "16. Pop-up assembly operation",
-                "17. Shut-off / ease of operation",
-                "18. Faucet operation"
-            ];
-            
-            for (let item of lavatoryItems) {
-                html += createChecklistItem(item, num, 'bath');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>TUB / SHOWER UNIT & FAUCET</h3>`;
-            
-            const tubItems = [
-                "19. Shower head",
-                "20. Tub spout",
-                "21. Handles",
-                "22. Diverter assembly",
-                "23. Caulking",
-                "24. Stopper operation",
-                "25. Drain assembly / flow",
-                "26. Shut-off / ease of operation",
-                "27. Faucet operation"
-            ];
-            
-            for (let item of tubItems) {
-                html += createChecklistItem(item, num, 'bath');
-            }
-            
-            html += `</div>
-                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
-                    <h3>Bathroom Notes</h3>
-                    <textarea 
-                        id="bath-${num}-notes" 
-                        placeholder="Enter specific notes about this bathroom"
-                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
-                    ></textarea>
-                </div>`;
-            
-            return html;
-        }
-        
-        // Kitchen checklist - COMPLETE 17 ITEMS
-        function getKitchenChecklist(num) {
-            let html = `
-                <input type="text" class="room-name-input" id="kitchen-${num}-name" placeholder="Enter kitchen name/location">
-                
-                <div class="photo-section">
-                    <input type="file" id="kitchen-${num}-photos" class="photo-input" multiple accept="image/*" onchange="handlePhotos('kitchen-${num}', this)">
-                    <button class="photo-upload-btn" onclick="document.getElementById('kitchen-${num}-photos').click()">Add Photos</button>
-                    <div id="kitchen-${num}-preview" class="photo-preview-container"></div>
-                </div>
-                
-                <div class="checklist-group">
-                    <h3>(F) KITCHEN - FAUCET</h3>`;
-            
-            const faucetItems = [
-                "1. Aerator",
-                "2. Faucet mounted / secure",
-                "3. Sprayer",
-                "4. Shut-off / ease of operation"
-            ];
-            
-            for (let item of faucetItems) {
-                html += createChecklistItem(item, num, 'kitchen');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>SINK</h3>`;
-            
-            const sinkItems = [
-                "5. Drain flow",
-                "6. Trap & tubular piping",
-                "7. Supplies",
-                "8. Emergency shut-off valves",
-                "9. Strainers",
-                "10. Food waste disposal",
-                "11. Dishwasher drain"
-            ];
-            
-            for (let item of sinkItems) {
-                html += createChecklistItem(item, num, 'kitchen');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>DISHWASHER</h3>`;
-            
-            const dishwasherItems = [
-                "12. Dishwasher hose loop",
-                "13. Ice maker valve / line",
-                "14. Ice maker water filter",
-                "15. Instant hot water dispenser",
-                "16. Water dispenser",
-                "17. Dishwasher supply"
-            ];
-            
-            for (let item of dishwasherItems) {
-                html += createChecklistItem(item, num, 'kitchen');
-            }
-            
-            html += `</div>
-                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
-                    <h3>Kitchen Notes</h3>
-                    <textarea 
-                        id="kitchen-${num}-notes" 
-                        placeholder="Enter notes about kitchen plumbing"
-                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
-                    ></textarea>
-                </div>`;
-            
-            return html;
-        }
-        
-        // Laundry room checklist - COMPLETE 12 ITEMS
-        function getLaundryChecklist() {
-            let html = `
-                <input type="text" class="room-name-input" id="laundry-name" placeholder="Enter laundry room location">
-                
-                <div class="photo-section">
-                    <input type="file" id="laundry-photos" class="photo-input" multiple accept="image/*" onchange="handlePhotos('laundry', this)">
-                    <button class="photo-upload-btn" onclick="document.getElementById('laundry-photos').click()">Add Photos</button>
-                    <div id="laundry-preview" class="photo-preview-container"></div>
-                </div>
-                
-                <div class="checklist-group">
-                    <h3>(B) LAUNDRY - FAUCET & LAUNDRY TUB</h3>`;
-            
-            const faucetItems = [
-                "1. Aerator",
-                "2. Faucet mounted / secure",
-                "3. Handles",
-                "4. Drain flow",
-                "5. Trap & tubular piping",
-                "6. Supplies",
-                "7. Emergency shut-off valve",
-                "8. Strainers"
-            ];
-            
-            for (let item of faucetItems) {
-                html += createChecklistItem(item, 0, 'laundry');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>WASHING MACHINE</h3>`;
-            
-            const washingItems = [
-                "9. Hoses / hot & cold",
-                "10. Emergency shut-off valve"
-            ];
-            
-            for (let item of washingItems) {
-                html += createChecklistItem(item, 0, 'laundry');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>DRYER</h3>`;
-            
-            const dryerItems = [
-                "11. Gas supply",
-                "12. Properly vented"
-            ];
-            
-            for (let item of dryerItems) {
-                html += createChecklistItem(item, 0, 'laundry');
-            }
-            
-            html += `</div>
-                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
-                    <h3>Laundry Notes</h3>
-                    <textarea 
-                        id="laundry-notes" 
-                        placeholder="Enter notes"
-                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
-                    ></textarea>
-                </div>`;
-            
-            return html;
-        }
-        
-        // Basement/Utility checklist - COMPLETE 18 ITEMS
-        function getBasementChecklist() {
-            let html = `
-                <input type="text" class="room-name-input" id="basement-name" placeholder="Enter location">
-                
-                <div class="photo-section">
-                    <input type="file" id="basement-photos" class="photo-input" multiple accept="image/*" onchange="handlePhotos('basement', this)">
-                    <button class="photo-upload-btn" onclick="document.getElementById('basement-photos').click()">Add Photos</button>
-                    <div id="basement-preview" class="photo-preview-container"></div>
-                </div>
-                
-                <div class="checklist-group">
-                    <h3>Hot Water Heater</h3>`;
-            
-            const heaterItems = [
-                "1. Emergency water shut-off",
-                "2. Drain valve",
-                "3. Safety relief valve",
-                "4. Proper temperature range",
-                "5. Burner assembly clean",
-                "6. Gas / electric supply",
-                "7. Emergency gas shut-off",
-                "8. Draft / ventilation",
-                "9. Flu piping",
-                "10. CO2 detector"
-            ];
-            
-            for (let item of heaterItems) {
-                html += createChecklistItem(item, 0, 'basement');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>Sump Pump</h3>`;
-            
-            const sumpItems = [
-                "11. Pit clean",
-                "12. Pump operation",
-                "13. Discharge piping",
-                "14. Check valve",
-                "15. Cover secure",
-                "16. Piping anchored",
-                "17. Back-up system",
-                "18. Back-up system condition"
-            ];
-            
-            for (let item of sumpItems) {
-                html += createChecklistItem(item, 0, 'basement');
-            }
-            
-            html += `</div>
-                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
-                    <h3>Basement/Utility Notes</h3>
-                    <textarea 
-                        id="basement-notes" 
-                        placeholder="Enter notes"
-                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
-                    ></textarea>
-                </div>`;
-            
-            return html;
-        }
-        
-        // Garage/Yard checklist - COMPLETE 10 ITEMS
-        function getGarageChecklist() {
-            let html = `
-                <input type="text" class="room-name-input" id="garage-name" placeholder="Enter location">
-                
-                <div class="photo-section">
-                    <input type="file" id="garage-photos" class="photo-input" multiple accept="image/*" onchange="handlePhotos('garage', this)">
-                    <button class="photo-upload-btn" onclick="document.getElementById('garage-photos').click()">Add Photos</button>
-                    <div id="garage-preview" class="photo-preview-container"></div>
-                </div>
-                
-                <div class="checklist-group">
-                    <h3>(D) GARAGE / YARD - HOSE FAUCET #1</h3>`;
-            
-            const faucet1Items = [
-                "1. Shut-off operation",
-                "2. Vacuum breaker",
-                "3. Sealed and anchored",
-                "4. Anti-siphon device",
-                "5. Drainable shut-off"
-            ];
-            
-            for (let item of faucet1Items) {
-                html += createChecklistItem(item, 0, 'garage');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>HOSE FAUCET #2</h3>`;
-            
-            const faucet2Items = [
-                "6. Shut-off operation",
-                "7. Vacuum breaker",
-                "8. Sealed and anchored",
-                "9. Anti-siphon device",
-                "10. Drainable shut-off"
-            ];
-            
-            for (let item of faucet2Items) {
-                html += createChecklistItem(item, 0, 'garage');
-            }
-            
-            html += `</div>
-                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
-                    <h3>Garage/Yard Notes</h3>
-                    <textarea 
-                        id="garage-notes" 
-                        placeholder="Enter notes"
-                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
-                    ></textarea>
-                </div>`;
-            
-            return html;
-        }
-        
-        // General checklist - COMPLETE 12 ITEMS
-        function getGeneralChecklist() {
-            let html = `
-                <div class="checklist-group">
-                    <h3>(E) GENERAL - WATER SUPPLY PIPING</h3>`;
-            
-            const waterSupplyItems = [
-                "1. Proper flow / operation",
-                "2. Emergency shut-off valve",
-                "3. Anchored properly",
-                "4. Pressure reducing valve",
-                "5. Shut-off valves tagged"
-            ];
-            
-            for (let item of waterSupplyItems) {
-                html += createChecklistItem(item, 0, 'general');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>SANITARY SYSTEM</h3>`;
-            
-            const sanitaryItems = [
-                "6. Proper flow / operation",
-                "7. Leaks / corrosion",
-                "8. Clean-outs in place",
-                "9. Back water / check valve"
-            ];
-            
-            for (let item of sanitaryItems) {
-                html += createChecklistItem(item, 0, 'general');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>VIDEO INSPECTION</h3>`;
-            
-            const videoItems = [
-                "10. Line free of obstruction",
-                "11. Line free of damages",
-                "12. Outside cleanout available"
-            ];
-            
-            for (let item of videoItems) {
-                html += createChecklistItem(item, 0, 'general');
-            }
-            
-            html += `</div>
-                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
-                    <h3>General Notes</h3>
-                    <textarea 
-                        id="general-notes" 
-                        placeholder="Enter notes"
-                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
-                    ></textarea>
-                </div>`;
-            
-            return html;
-        }
-        
-        // Other checklist - NEW SECTION 6 ITEMS
-        function getOtherChecklist() {
-            let html = `
-                <div class="checklist-group">
-                    <h3>(G) OTHER - FIREPLACE</h3>`;
-            
-            const fireplaceItems = [
-                "1. Gas service",
-                "2. Log lighter",
-                "3. Gas logs"
-            ];
-            
-            for (let item of fireplaceItems) {
-                html += createChecklistItem(item, 0, 'other');
-            }
-            
-            html += `</div><div class="checklist-group">
-                    <h3>WET BAR</h3>`;
-            
-            const wetBarItems = [
-                "4. Sink",
-                "5. Faucet",
-                "6. Drain"
-            ];
-            
-            for (let item of wetBarItems) {
-                html += createChecklistItem(item, 0, 'other');
-            }
-            
-            html += `</div>
-                <div class="checklist-group" style="background: #fff3cd; border: 2px solid #ffc107;">
-                    <h3>Other Notes</h3>
-                    <textarea 
-                        id="other-notes" 
-                        placeholder="Enter notes"
-                        style="width: 100%; min-height: 120px; padding: 12px; border: 2px solid #dee2e6; border-radius: 8px; font-size: 14px; font-family: inherit; resize: vertical;"
-                    ></textarea>
-                </div>`;
-            
-            return html;
-        }
-        
-        // Helper function to create checklist items
-        function createChecklistItem(label, num, prefix) {
-            const roomId = num > 0 ? `${prefix}-${num}` : prefix;
-            return `
-                <div class="checklist-item">
-                    <label>${label}</label>
-                    <div class="status-buttons">
-                        <button class="status-btn" onclick="setStatus(this, 'pass', '${roomId}')">✓</button>
-                        <button class="status-btn" onclick="setStatus(this, 'warning', '${roomId}')">⚠</button>
-                        <button class="status-btn" onclick="setStatus(this, 'fail', '${roomId}')">✗</button>
-                        <button class="status-btn" onclick="setStatus(this, 'na', '${roomId}')">-</button>
-                    </div>
-                </div>`;
-        }
-        
-        // Show section
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            
-            document.getElementById(sectionId).classList.add('active');
-            event.target.classList.add('active');
-            
-            if (sectionId === 'summary') {
-                updateSummary();
-            }
-        }
-        
-        // Add bathroom
-        function addBathroom() {
-            bathroomCount++;
-            const container = document.getElementById('bathrooms');
-            const roomTabs = container.querySelector('.room-tabs');
-            
-            const newTab = document.createElement('button');
-            newTab.className = 'room-tab';
-            newTab.textContent = `Bath #${bathroomCount}`;
-            newTab.onclick = () => showBathroom(bathroomCount);
-            roomTabs.insertBefore(newTab, roomTabs.lastElementChild);
-            
-            const newRoom = document.createElement('div');
-            newRoom.id = `bathroom-${bathroomCount}`;
-            newRoom.className = 'room-content';
-            newRoom.style.display = 'none';
-            newRoom.innerHTML = getBathroomChecklist(bathroomCount);
-            container.appendChild(newRoom);
-            
-            showBathroom(bathroomCount);
-        }
-        
-        // Show bathroom
-        function showBathroom(num) {
-            const container = document.getElementById('bathrooms');
-            container.querySelectorAll('.room-content').forEach(r => r.style.display = 'none');
-            container.querySelectorAll('.room-tab').forEach(t => t.classList.remove('active'));
-            
-            document.getElementById(`bathroom-${num}`).style.display = 'block';
-            container.querySelectorAll('.room-tab')[num - 1].classList.add('active');
-        }
-        
-        // Add kitchen
-        function addKitchen() {
-            kitchenCount++;
-            const container = document.getElementById('kitchen');
-            const roomTabs = container.querySelector('.room-tabs');
-            
-            const newTab = document.createElement('button');
-            newTab.className = 'room-tab';
-            newTab.textContent = `Kitchen #${kitchenCount}`;
-            newTab.onclick = () => showKitchen(kitchenCount);
-            roomTabs.insertBefore(newTab, roomTabs.lastElementChild);
-            
-            const newRoom = document.createElement('div');
-            newRoom.id = `kitchen-${kitchenCount}`;
-            newRoom.className = 'room-content';
-            newRoom.style.display = 'none';
-            newRoom.innerHTML = getKitchenChecklist(kitchenCount);
-            container.appendChild(newRoom);
-            
-            showKitchen(kitchenCount);
-        }
-        
-        // Show kitchen
-        function showKitchen(num) {
-            const container = document.getElementById('kitchen');
-            container.querySelectorAll('.room-content').forEach(r => r.style.display = 'none');
-            container.querySelectorAll('.room-tab').forEach(t => t.classList.remove('active'));
-            
-            document.getElementById(`kitchen-${num}`).style.display = 'block';
-            container.querySelectorAll('.room-tab')[num - 1].classList.add('active');
-        }
-        
-        // Set status
-        function setStatus(button, status, roomId) {
-            const parent = button.parentElement;
-            const buttons = parent.querySelectorAll('.status-btn');
-            
-            buttons.forEach(btn => {
-                btn.classList.remove('pass', 'fail', 'warning', 'na');
+            checkStorage();
+            
+            // Initialize with one instance of each room type
+            Object.keys(sectionTemplates).forEach(type => {
+                if (!roomInstances[type]) {
+                    roomInstances[type] = [];
+                }
+                if (roomInstances[type].length === 0) {
+                    addRoom(type, false);
+                }
             });
-            
-            button.classList.add(status);
-            
-            if (!evaluationData[roomId]) {
-                evaluationData[roomId] = {};
+
+            if (storageAvailable) {
+                loadData();
             }
-            const label = button.closest('.checklist-item').querySelector('label').textContent;
-            evaluationData[roomId][label] = status;
-            
-            savePhotosToLocal();
+
+            renderTabs();
+            renderContent();
         }
-        
-        // Image compression function
-        function compressImage(file, maxWidth = 1200) {
+
+        function generateRoomId(type) {
+            const count = roomInstances[type].length;
+            return `${type}-${count}`;
+        }
+
+        function addRoom(type, shouldSave = true) {
+            const template = sectionTemplates[type];
+            const roomId = generateRoomId(type);
+            
+            const defaultName = template.canAddMultiple 
+                ? `${template.title} ${roomInstances[type].length + 1}`
+                : template.title;
+
+            roomInstances[type].push({
+                id: roomId,
+                name: defaultName,
+                type: type
+            });
+
+            evaluationData[roomId] = {
+                type: type,
+                name: defaultName,
+                items: {},
+                photos: []
+            };
+
+            template.items.forEach((item, index) => {
+                evaluationData[roomId].items[index] = {
+                    title: item,
+                    condition: null,
+                    notes: ''
+                };
+            });
+
+            currentTab = roomId;
+
+            if (shouldSave) {
+                saveDataDebounced();
+                renderTabs();
+                renderContent();
+            }
+        }
+
+        function deleteRoom(roomId) {
+            const roomData = evaluationData[roomId];
+            if (!roomData) return;
+
+            const type = roomData.type;
+            const template = sectionTemplates[type];
+
+            if (!template.canAddMultiple) {
+                alert(`Cannot delete ${template.title} - only one allowed.`);
+                return;
+            }
+
+            if (!confirm(`Delete ${roomData.name}?`)) return;
+
+            // Remove from instances
+            roomInstances[type] = roomInstances[type].filter(r => r.id !== roomId);
+            
+            // Delete data
+            delete evaluationData[roomId];
+
+            // Switch to another tab
+            if (currentTab === roomId) {
+                const allRoomIds = getAllRoomIds();
+                currentTab = allRoomIds[0] || 'summary';
+            }
+
+            saveDataDebounced();
+            renderTabs();
+            renderContent();
+        }
+
+        function renameRoom(roomId) {
+            const roomData = evaluationData[roomId];
+            if (!roomData) return;
+
+            const newName = prompt('Enter new name:', roomData.name);
+            if (newName && newName.trim()) {
+                roomData.name = newName.trim();
+                
+                // Update in instances
+                const type = roomData.type;
+                const instance = roomInstances[type].find(r => r.id === roomId);
+                if (instance) {
+                    instance.name = newName.trim();
+                }
+
+                saveDataDebounced();
+                renderTabs();
+                renderContent();
+            }
+        }
+
+        function getAllRoomIds() {
+            const ids = [];
+            Object.keys(roomInstances).forEach(type => {
+                roomInstances[type].forEach(room => {
+                    ids.push(room.id);
+                });
+            });
+            return ids;
+        }
+
+        function renderTabs() {
+            const navTabs = document.getElementById('navTabs');
+            navTabs.innerHTML = '';
+
+            // Add tabs for each room instance
+            Object.keys(sectionTemplates).forEach(type => {
+                const template = sectionTemplates[type];
+                
+                roomInstances[type].forEach(room => {
+                    const button = document.createElement('button');
+                    button.className = `nav-tab ${room.id === currentTab ? 'active' : ''}`;
+                    button.onclick = () => switchTab(room.id);
+                    
+                    const label = document.createElement('span');
+                    label.textContent = `${template.emoji} ${room.name}`;
+                    button.appendChild(label);
+
+                    if (template.canAddMultiple && roomInstances[type].length > 1) {
+                        const deleteBtn = document.createElement('button');
+                        deleteBtn.className = 'tab-delete-btn';
+                        deleteBtn.textContent = '×';
+                        deleteBtn.onclick = (e) => {
+                            e.stopPropagation();
+                            deleteRoom(room.id);
+                        };
+                        button.appendChild(deleteBtn);
+                    }
+
+                    navTabs.appendChild(button);
+                });
+
+                // Add "+" button for types that can have multiples
+                if (template.canAddMultiple) {
+                    const addBtn = document.createElement('button');
+                    addBtn.className = 'add-room-btn';
+                    addBtn.innerHTML = `+ Add ${template.title}`;
+                    addBtn.onclick = () => addRoom(type);
+                    navTabs.appendChild(addBtn);
+                }
+            });
+
+            // Add summary tab
+            const summaryBtn = document.createElement('button');
+            summaryBtn.className = `nav-tab ${currentTab === 'summary' ? 'active' : ''}`;
+            summaryBtn.textContent = '📊 Summary';
+            summaryBtn.onclick = () => switchTab('summary');
+            navTabs.appendChild(summaryBtn);
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            renderTabs();
+            renderContent();
+        }
+
+        function renderContent() {
+            const container = document.getElementById('tabsContainer');
+            container.innerHTML = '';
+
+            if (currentTab === 'summary') {
+                container.innerHTML = renderSummary();
+                return;
+            }
+
+            const roomData = evaluationData[currentTab];
+            if (!roomData) return;
+
+            const template = sectionTemplates[roomData.type];
+
+            let html = `
+                <div class="tab-content active">
+                    <div class="section-header">
+                        <span>${template.emoji} ${roomData.name}</span>
+                        <button class="rename-btn" onclick="renameRoom('${currentTab}')">✏️ Rename</button>
+                    </div>
+            `;
+
+            template.items.forEach((item, index) => {
+                const itemData = roomData.items[index];
+                html += `
+                    <div class="item">
+                        <div class="item-header">
+                            <div class="item-number">${index + 1}</div>
+                            <div class="item-title">${item}</div>
+                            <div class="condition-group">
+                                <button class="condition-btn good ${itemData.condition === 'good' ? 'active' : ''}" 
+                                        onclick="setCondition('${currentTab}', ${index}, 'good')">✓ Good</button>
+                                <button class="condition-btn fair ${itemData.condition === 'fair' ? 'active' : ''}" 
+                                        onclick="setCondition('${currentTab}', ${index}, 'fair')">! Fair</button>
+                                <button class="condition-btn poor ${itemData.condition === 'poor' ? 'active' : ''}" 
+                                        onclick="setCondition('${currentTab}', ${index}, 'poor')">✗ Poor</button>
+                            </div>
+                        </div>
+                        <div class="item-notes">
+                            <textarea placeholder="Add notes..." 
+                                      onchange="setNotes('${currentTab}', ${index}, this.value)"
+                                      onblur="saveDataDebounced()">${itemData.notes}</textarea>
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `
+                    <div class="photo-section">
+                        <div class="photo-upload">
+                            <input type="file" id="photoInput_${currentTab}" accept="image/*" 
+                                   capture="environment" style="display:none" 
+                                   onchange="handlePhotoUpload('${currentTab}', event)" multiple>
+                            <button class="photo-btn" onclick="document.getElementById('photoInput_${currentTab}').click()">
+                                📷 Add Photos
+                            </button>
+                            <span style="font-size:12px;color:#6c757d;">${roomData.photos.length} photos</span>
+                        </div>
+                        <div class="photo-grid" id="photoGrid_${currentTab}">
+                            ${renderPhotos(currentTab)}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+
+        function setCondition(roomId, index, condition) {
+            evaluationData[roomId].items[index].condition = condition;
+            saveDataDebounced();
+            renderContent();
+        }
+
+        function setNotes(roomId, index, notes) {
+            evaluationData[roomId].items[index].notes = notes;
+        }
+
+        let saveTimeout;
+        function saveDataDebounced() {
+            clearTimeout(saveTimeout);
+            saveTimeout = setTimeout(saveData, 500);
+        }
+
+        function saveData() {
+            if (!storageAvailable) {
+                console.warn('Storage not available, data not saved');
+                return;
+            }
+            
+            try {
+                const dataToSave = {
+                    version: 2,
+                    timestamp: new Date().toISOString(),
+                    roomInstances: roomInstances,
+                    data: evaluationData
+                };
+                localStorage.setItem('plumbingEval', JSON.stringify(dataToSave));
+            } catch (e) {
+                console.error('Error saving data:', e);
+                document.getElementById('storageWarning').classList.add('show');
+            }
+        }
+
+        function loadData() {
+            try {
+                const saved = localStorage.getItem('plumbingEval');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (confirm('Found saved data from ' + new Date(parsed.timestamp).toLocaleString() + '. Restore it?')) {
+                        if (parsed.version === 2) {
+                            roomInstances = parsed.roomInstances;
+                            evaluationData = parsed.data;
+                        } else {
+                            // Migrate old data
+                            alert('Converting old data format...');
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading data:', e);
+            }
+        }
+
+        async function handlePhotoUpload(roomId, event) {
+            const files = Array.from(event.target.files);
+            
+            for (const file of files) {
+                try {
+                    const compressed = await compressImage(file);
+                    evaluationData[roomId].photos.push(compressed);
+                } catch (e) {
+                    console.error('Error processing photo:', e);
+                    alert('Error processing photo. It may be too large.');
+                }
+            }
+            
+            saveDataDebounced();
+            renderContent();
+        }
+
+        function compressImage(file) {
             return new Promise((resolve, reject) => {
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     const img = new Image();
                     img.onload = () => {
                         const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
                         let width = img.width;
                         let height = img.height;
+                        const maxSize = 1200;
                         
-                        if (width > maxWidth) {
-                            height = Math.round((maxWidth / width) * height);
-                            width = maxWidth;
+                        if (width > maxSize || height > maxSize) {
+                            if (width > height) {
+                                height = (height / width) * maxSize;
+                                width = maxSize;
+                            } else {
+                                width = (width / height) * maxSize;
+                                height = maxSize;
+                            }
                         }
                         
                         canvas.width = width;
                         canvas.height = height;
-                        
-                        const ctx = canvas.getContext('2d');
                         ctx.drawImage(img, 0, 0, width, height);
                         
-                        const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
-                        
-                        resolve({
-                            data: compressedDataUrl,
-                            name: file.name,
-                            originalSize: file.size,
-                            compressedSize: Math.round(compressedDataUrl.length * 0.75),
-                            width: width,
-                            height: height,
-                            timestamp: new Date().toISOString()
-                        });
+                        resolve(canvas.toDataURL('image/jpeg', 0.8));
                     };
                     img.onerror = reject;
                     img.src = e.target.result;
@@ -1194,424 +1001,169 @@
                 reader.readAsDataURL(file);
             });
         }
-        
-        // Handle photos
-        async function handlePhotos(sectionId, input) {
-            const files = input.files;
-            if (!files || files.length === 0) return;
-            
-            if (!photoData[sectionId]) {
-                photoData[sectionId] = [];
-            }
-            
-            const previewContainer = document.getElementById(`${sectionId}-preview`);
-            
-            const loadingDiv = document.createElement('div');
-            loadingDiv.innerHTML = 'Compressing photos...';
-            loadingDiv.style.padding = '10px';
-            previewContainer.appendChild(loadingDiv);
-            
-            for (let file of files) {
-                if (file.type.startsWith('image/')) {
-                    try {
-                        const compressedPhoto = await compressImage(file);
-                        const photoId = Date.now() + Math.random();
-                        
-                        compressedPhoto.id = photoId;
-                        compressedPhoto.annotation = '';
-                        
-                        photoData[sectionId].push(compressedPhoto);
-                        
-                        const photoIndex = photoData[sectionId].length - 1;
-                        const photoDiv = document.createElement('div');
-                        photoDiv.className = 'photo-preview';
-                        photoDiv.onclick = () => openPhotoModal(sectionId, photoIndex);
-                        
-                        const img = document.createElement('img');
-                        img.src = compressedPhoto.data;
-                        img.title = `${compressedPhoto.name} (Click to view)`;
-                        
-                        const removeBtn = document.createElement('button');
-                        removeBtn.className = 'photo-remove';
-                        removeBtn.textContent = '×';
-                        removeBtn.onclick = (e) => {
-                            e.stopPropagation();
-                            photoDiv.remove();
-                            photoData[sectionId] = photoData[sectionId].filter(p => p.id !== photoId);
-                            updatePhotoIndexes(sectionId);
-                        };
-                        
-                        photoDiv.appendChild(img);
-                        photoDiv.appendChild(removeBtn);
-                        previewContainer.insertBefore(photoDiv, loadingDiv);
-                        
-                    } catch (error) {
-                        console.error('Error compressing image:', error);
-                        alert(`Failed to process ${file.name}`);
-                    }
-                }
-            }
-            
-            previewContainer.removeChild(loadingDiv);
-            input.value = '';
-            savePhotosToLocal();
+
+        function renderPhotos(roomId) {
+            const photos = evaluationData[roomId].photos;
+            return photos.map((photo, index) => `
+                <div class="photo-item" onclick="viewPhoto('${roomId}', ${index})">
+                    <img src="${photo}" alt="Photo ${index + 1}">
+                    <button class="photo-delete" onclick="event.stopPropagation(); deletePhoto('${roomId}', ${index})">×</button>
+                </div>
+            `).join('');
         }
-        
-        // Photo viewer modal functions
-        function openPhotoModal(sectionId, photoIndex) {
-            const photos = photoData[sectionId];
-            if (!photos || photos.length === 0) return;
-            
-            currentPhotoViewing = { sectionId, photoIndex };
-            
-            let modal = document.getElementById('photoModal');
-            if (!modal) {
-                modal = document.createElement('div');
-                modal.id = 'photoModal';
-                modal.className = 'photo-modal';
-                modal.innerHTML = `
-                    <span class="photo-modal-close" onclick="closePhotoModal()">&times;</span>
-                    <span class="photo-counter"></span>
-                    <span class="photo-modal-nav photo-modal-prev" onclick="changePhoto(-1)">&#10094;</span>
-                    <span class="photo-modal-nav photo-modal-next" onclick="changePhoto(1)">&#10095;</span>
-                    <img class="photo-modal-content" id="modalImage">
-                    <div class="photo-modal-caption" id="modalCaption"></div>
-                `;
-                document.body.appendChild(modal);
-                
-                modal.onclick = (e) => {
-                    if (e.target === modal) closePhotoModal();
-                };
+
+        function deletePhoto(roomId, index) {
+            if (confirm('Delete this photo?')) {
+                evaluationData[roomId].photos.splice(index, 1);
+                saveDataDebounced();
+                renderContent();
             }
-            
-            displayPhoto(sectionId, photoIndex);
-            modal.style.display = 'block';
         }
-        
-        function displayPhoto(sectionId, photoIndex) {
-            const photos = photoData[sectionId];
-            if (!photos || !photos[photoIndex]) return;
-            
-            const photo = photos[photoIndex];
+
+        function viewPhoto(roomId, index) {
+            currentPhotoViewing = { roomId, index };
             const modal = document.getElementById('photoModal');
             const img = document.getElementById('modalImage');
-            const caption = document.getElementById('modalCaption');
-            const counter = modal.querySelector('.photo-counter');
-            
-            img.src = photo.data;
-            caption.innerHTML = `
-                <strong>${photo.name}</strong><br>
-                ${photo.annotation || 'No description'}<br>
-                <small>Size: ${formatFileSize(photo.compressedSize || photo.data.length)}</small>
-            `;
-            counter.textContent = `${photoIndex + 1} / ${photos.length}`;
-            
-            const prevBtn = modal.querySelector('.photo-modal-prev');
-            const nextBtn = modal.querySelector('.photo-modal-next');
-            prevBtn.style.display = photoIndex > 0 ? 'block' : 'none';
-            nextBtn.style.display = photoIndex < photos.length - 1 ? 'block' : 'none';
+            img.src = evaluationData[roomId].photos[index];
+            modal.classList.add('active');
         }
-        
+
+        function closePhotoModal() {
+            document.getElementById('photoModal').classList.remove('active');
+            currentPhotoViewing = null;
+        }
+
         function changePhoto(direction) {
             if (!currentPhotoViewing) return;
             
-            const { sectionId, photoIndex } = currentPhotoViewing;
-            const photos = photoData[sectionId];
-            const newIndex = photoIndex + direction;
+            const { roomId, index } = currentPhotoViewing;
+            const photos = evaluationData[roomId].photos;
+            let newIndex = index + direction;
             
-            if (newIndex >= 0 && newIndex < photos.length) {
-                currentPhotoViewing.photoIndex = newIndex;
-                displayPhoto(sectionId, newIndex);
-            }
-        }
-        
-        function closePhotoModal() {
-            const modal = document.getElementById('photoModal');
-            if (modal) {
-                modal.style.display = 'none';
-                currentPhotoViewing = null;
-            }
-        }
-        
-        function formatFileSize(bytes) {
-            if (bytes < 1024) return bytes + ' B';
-            else if (bytes < 1048576) return Math.round(bytes / 1024) + ' KB';
-            else return Math.round(bytes / 1048576 * 10) / 10 + ' MB';
-        }
-        
-        function updatePhotoIndexes(sectionId) {
-            const container = document.getElementById(`${sectionId}-preview`);
-            const previews = container.querySelectorAll('.photo-preview');
-            previews.forEach((preview, index) => {
-                preview.onclick = () => openPhotoModal(sectionId, index);
-            });
-        }
-        
-        // Save to localStorage
-        function savePhotosToLocal() {
-            try {
-                const dataToStore = {
-                    evaluationData: evaluationData,
-                    photoData: photoData,
-                    timestamp: new Date().toISOString()
-                };
-                
-                const dataStr = JSON.stringify(dataToStore);
-                const sizeInKB = dataStr.length / 1024;
-                
-                if (sizeInKB > 5000) {
-                    console.warn(`Data size: ${Math.round(sizeInKB)}KB - Consider exporting to file`);
-                    return;
-                }
-                
-                localStorage.setItem('plumbing_eval_temp', dataStr);
-                console.log(`Auto-saved ${Math.round(sizeInKB)}KB to localStorage`);
-            } catch (e) {
-                if (e.name === 'QuotaExceededError') {
-                    alert('Local storage full. Please export your data to a file.');
-                }
-            }
-        }
-        
-        function loadFromLocal() {
-            try {
-                const stored = localStorage.getItem('plumbing_eval_temp');
-                if (stored) {
-                    const data = JSON.parse(stored);
-                    if (confirm('Found saved evaluation data. Would you like to restore it?')) {
-                        evaluationData = data.evaluationData || {};
-                        photoData = data.photoData || {};
-                        console.log('Restored data from localStorage');
-                        rebuildPhotoPreview();
-                    }
-                }
-            } catch (e) {
-                console.error('Error loading from localStorage:', e);
-            }
-        }
-        
-        function rebuildPhotoPreview() {
-            for (const sectionId in photoData) {
-                const photos = photoData[sectionId];
-                const previewContainer = document.getElementById(`${sectionId}-preview`);
-                if (previewContainer && photos) {
-                    previewContainer.innerHTML = '';
-                    photos.forEach((photo, index) => {
-                        const photoDiv = document.createElement('div');
-                        photoDiv.className = 'photo-preview';
-                        photoDiv.onclick = () => openPhotoModal(sectionId, index);
-                        
-                        const img = document.createElement('img');
-                        img.src = photo.data;
-                        img.title = `${photo.name} (Click to view)`;
-                        
-                        const removeBtn = document.createElement('button');
-                        removeBtn.className = 'photo-remove';
-                        removeBtn.textContent = '×';
-                        removeBtn.onclick = (e) => {
-                            e.stopPropagation();
-                            photoDiv.remove();
-                            photoData[sectionId] = photoData[sectionId].filter(p => p.id !== photo.id);
-                            updatePhotoIndexes(sectionId);
-                        };
-                        
-                        photoDiv.appendChild(img);
-                        photoDiv.appendChild(removeBtn);
-                        previewContainer.appendChild(photoDiv);
-                    });
-                }
-            }
-        }
-        
-        // Update summary
-        function updateSummary() {
-            let totalChecked = 0;
-            let totalPassed = 0;
-            let totalWarnings = 0;
-            let totalFailed = 0;
+            if (newIndex < 0) newIndex = photos.length - 1;
+            if (newIndex >= photos.length) newIndex = 0;
             
-            for (const room in evaluationData) {
-                for (const item in evaluationData[room]) {
-                    const status = evaluationData[room][item];
-                    if (status === 'pass' || status === 'warning' || status === 'fail' || status === 'na') {
-                        totalChecked++;
-                        if (status === 'pass') totalPassed++;
-                        else if (status === 'warning') totalWarnings++;
-                        else if (status === 'fail') totalFailed++;
-                    }
-                }
-            }
-            
-            document.getElementById('totalChecked').textContent = totalChecked;
-            document.getElementById('totalPassed').textContent = totalPassed;
-            document.getElementById('totalWarnings').textContent = totalWarnings;
-            document.getElementById('totalFailed').textContent = totalFailed;
+            viewPhoto(roomId, newIndex);
         }
-        
-        // Clear all
-        function clearAll() {
-            if (confirm('Clear all evaluation data? This will also clear any auto-saved data.')) {
-                evaluationData = {};
-                photoData = {};
-                document.querySelectorAll('.status-btn').forEach(btn => {
-                    btn.classList.remove('pass', 'fail', 'warning', 'na');
+
+        function renderSummary() {
+            let totalItems = 0;
+            let goodCount = 0;
+            let fairCount = 0;
+            let poorCount = 0;
+            let notEvaluated = 0;
+            let totalPhotos = 0;
+
+            Object.values(evaluationData).forEach(roomData => {
+                const items = roomData.items;
+                Object.values(items).forEach(item => {
+                    totalItems++;
+                    if (item.condition === 'good') goodCount++;
+                    else if (item.condition === 'fair') fairCount++;
+                    else if (item.condition === 'poor') poorCount++;
+                    else notEvaluated++;
                 });
-                document.querySelectorAll('.photo-preview-container').forEach(c => {
-                    c.innerHTML = '';
-                });
-                document.getElementById('jobNumber').value = '';
-                document.getElementById('technician').value = '';
-                document.getElementById('recommendations').value = '';
-                document.querySelectorAll('[id$="-notes"]').forEach(textarea => {
-                    textarea.value = '';
-                });
-                
-                localStorage.removeItem('plumbing_eval_temp');
-                
-                updateSummary();
-                alert('All data cleared successfully.');
-            }
+                totalPhotos += roomData.photos.length;
+            });
+
+            return `
+                <div class="tab-content active">
+                    <div class="section-header">📊 Evaluation Summary</div>
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h3>${totalItems}</h3>
+                            <p>Total Items</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 style="color:#28a745">${goodCount}</h3>
+                            <p>Good Condition</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 style="color:#ffc107">${fairCount}</h3>
+                            <p>Fair Condition</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 style="color:#dc3545">${poorCount}</h3>
+                            <p>Poor Condition</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 style="color:#6c757d">${notEvaluated}</h3>
+                            <p>Not Evaluated</p>
+                        </div>
+                        <div class="summary-card">
+                            <h3 style="color:#667eea">${totalPhotos}</h3>
+                            <p>Photos Taken</p>
+                        </div>
+                    </div>
+                </div>
+            `;
         }
-        
-        // Save data
-        function saveData() {
-            const data = {
-                jobInfo: {
-                    jobNumber: document.getElementById('jobNumber').value,
-                    jobDate: document.getElementById('jobDate').value,
-                    technician: document.getElementById('technician').value
-                },
-                roomNames: {},
-                roomNotes: {},
-                evaluationData: evaluationData,
-                photoData: photoData,
-                recommendations: document.getElementById('recommendations').value,
-                timestamp: new Date().toISOString()
-            };
-            
-            document.querySelectorAll('.room-name-input').forEach(input => {
-                if (input.value) {
-                    data.roomNames[input.id] = input.value;
-                }
-            });
-            
-            document.querySelectorAll('[id$="-notes"]').forEach(textarea => {
-                if (textarea.value) {
-                    data.roomNotes[textarea.id] = textarea.value;
-                }
-            });
-            
-            const dataStr = JSON.stringify(data, null, 2);
-            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+
+        function saveJSON() {
+            const dataStr = JSON.stringify({
+                roomInstances,
+                evaluationData
+            }, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
             const url = URL.createObjectURL(dataBlob);
             const link = document.createElement('a');
             link.href = url;
-            link.download = `plumbing-eval-${data.jobInfo.jobNumber || Date.now()}.json`;
+            link.download = `plumbing-eval-${new Date().toISOString().split('T')[0]}.json`;
             link.click();
-            
-            alert('Evaluation saved! File downloaded.');
+            URL.revokeObjectURL(url);
         }
-        
-        // Generate report
-        function generateReport() {
-            const jobNumber = document.getElementById('jobNumber').value || 'N/A';
-            const jobDate = document.getElementById('jobDate').value || 'N/A';
-            const technician = document.getElementById('technician').value || 'N/A';
-            
-            let report = `
-                <html>
-                <head>
-                    <title>Plumbing Report - ${jobNumber}</title>
-                    <style>
-                        body { font-family: Arial; max-width: 800px; margin: 20px auto; }
-                        h1 { color: #2c3e50; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
-                        .header { background: #f8f9fa; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-                        .section { margin: 20px 0; }
-                        .pass { color: #28a745; }
-                        .warning { color: #ffc107; }
-                        .fail { color: #dc3545; }
-                        .na { color: #6c757d; }
-                    </style>
-                </head>
-                <body>
-                    <h1>Nigel Mulgrew Plumbing - Evaluation Report</h1>
-                    <div class="header">
-                        <p><strong>Job #:</strong> ${jobNumber}</p>
-                        <p><strong>Date:</strong> ${jobDate}</p>
-                        <p><strong>Technician:</strong> ${technician}</p>
-                    </div>
-            `;
-            
-            for (const room in evaluationData) {
-                report += `<div class="section"><h2>${room.toUpperCase()}</h2>`;
-                for (const item in evaluationData[room]) {
-                    const status = evaluationData[room][item];
-                    report += `<p class="${status}">${item}: ${status.toUpperCase()}</p>`;
-                }
-                report += `</div>`;
-            }
-            
-            const recommendations = document.getElementById('recommendations').value;
-            if (recommendations) {
-                report += `<div class="section"><h2>Recommendations</h2><p>${recommendations}</p></div>`;
-            }
-            
-            report += `
-                </body>
-                </html>
-            `;
-            
-            const reportWindow = window.open('', '_blank');
-            reportWindow.document.write(report);
-            reportWindow.document.close();
-        }
-        
-        // Email report
+
         function emailReport() {
-            const jobNumber = document.getElementById('jobNumber').value || 'N/A';
-            const jobDate = document.getElementById('jobDate').value || new Date().toLocaleDateString();
-            const technician = document.getElementById('technician').value || 'N/A';
+            let report = 'PLUMBING EVALUATION REPORT\n';
+            report += 'Date: ' + new Date().toLocaleString() + '\n\n';
             
-            let emailBody = `PLUMBING EVALUATION REPORT\n`;
-            emailBody += `=============================\n\n`;
-            emailBody += `Job Number: ${jobNumber}\n`;
-            emailBody += `Date: ${jobDate}\n`;
-            emailBody += `Technician: ${technician}\n\n`;
+            let issuesFound = [];
             
-            updateSummary();
+            Object.values(evaluationData).forEach(roomData => {
+                Object.entries(roomData.items).forEach(([index, item]) => {
+                    if (item.condition === 'fair' || item.condition === 'poor') {
+                        let issue = `${roomData.name} - ${item.title}: ${item.condition.toUpperCase()}`;
+                        if (item.notes) {
+                            issue += ` (${item.notes})`;
+                        }
+                        issuesFound.push(issue);
+                    }
+                });
+            });
             
-            const totalChecked = document.getElementById('totalChecked').textContent;
-            const totalPassed = document.getElementById('totalPassed').textContent;
-            const totalWarnings = document.getElementById('totalWarnings').textContent;
-            const totalFailed = document.getElementById('totalFailed').textContent;
-            
-            emailBody += `SUMMARY\n`;
-            emailBody += `---------\n`;
-            emailBody += `Total Items Checked: ${totalChecked}\n`;
-            emailBody += `Passed: ${totalPassed}\n`;
-            emailBody += `Warnings: ${totalWarnings}\n`;
-            emailBody += `Failed: ${totalFailed}\n\n`;
-            
-            const recommendations = document.getElementById('recommendations').value;
-            if (recommendations) {
-                emailBody += `RECOMMENDATIONS\n`;
-                emailBody += `----------------\n`;
-                emailBody += `${recommendations}\n\n`;
+            if (issuesFound.length > 0) {
+                report += 'ISSUES FOUND:\n\n';
+                issuesFound.forEach((issue, i) => {
+                    report += `${i + 1}. ${issue}\n`;
+                });
+            } else {
+                report += 'No significant issues found.\n';
             }
             
-            emailBody += `\n---\nGenerated by Nigel Mulgrew Plumbing Evaluation System`;
+            report += '\n\nFor full details, please download the JSON file.';
             
-            const subject = `Plumbing Evaluation Report - Job #${jobNumber} - ${jobDate}`;
-            const recipients = 'info@nigelmulgrewplumbing.com';
+            const subject = 'Plumbing Evaluation - ' + new Date().toLocaleDateString();
+            const body = encodeURIComponent(report);
+            const mailto = `mailto:info@nigelmulgrewplumbing.com?subject=${encodeURIComponent(subject)}&body=${body}`;
             
-            const mailtoLink = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(emailBody)}`;
+            window.location.href = mailto;
             
-            window.location.href = mailtoLink;
+            alert('Opening email client...\n\nIf email doesn\'t open, please export the JSON file and attach it to your email manually.');
             
             saveData();
         }
-        
-        // Keyboard navigation
+
+        function clearAllData() {
+            if (confirm('Are you sure? This will delete all evaluation data and photos!')) {
+                if (storageAvailable) {
+                    localStorage.removeItem('plumbingEval');
+                }
+                evaluationData = {};
+                roomInstances = {};
+                initApp();
+            }
+        }
+
         document.addEventListener('keydown', (e) => {
             if (currentPhotoViewing) {
                 if (e.key === 'ArrowLeft') changePhoto(-1);
@@ -1619,8 +1171,7 @@
                 else if (e.key === 'Escape') closePhotoModal();
             }
         });
-        
-        // Initialize on load
+
         window.onload = initApp;
     </script>
 </body>
