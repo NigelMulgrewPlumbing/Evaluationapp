@@ -51,6 +51,34 @@
             opacity: 0.9;
         }
         
+        .job-info {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .job-info-field {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .job-info-field label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        
+        .job-info-field input {
+            padding: 8px 12px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
         .storage-warning {
             background: #fff3cd;
             border-left: 4px solid #ffc107;
@@ -173,6 +201,38 @@
             background: rgba(255,255,255,0.3);
         }
         
+        .subsection-title {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            margin: 20px -15px 15px -15px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .location-field {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 6px;
+        }
+        
+        .location-field label {
+            font-weight: 600;
+            font-size: 14px;
+            color: #495057;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .location-field input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
         .item {
             background: #f8f9fa;
             border-radius: 8px;
@@ -273,10 +333,11 @@
         }
         
         .photo-section {
-            margin-top: 10px;
-            padding: 10px;
+            margin-top: 20px;
+            padding: 15px;
             background: white;
             border-radius: 6px;
+            border: 2px dashed #dee2e6;
         }
         
         .photo-upload {
@@ -423,6 +484,30 @@
             font-size: 14px;
         }
         
+        .recommendations-section {
+            margin-top: 20px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+        
+        .recommendations-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .recommendations-section textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+        }
+        
         .modal {
             display: none;
             position: fixed;
@@ -510,8 +595,23 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🔧 Plumbing Evaluation Form</h1>
-            <p>Nigel Mulgrew Plumbing, Inc. | Professional Assessment Tool</p>
+            <h1>🔧 Home Plumbing Evaluation</h1>
+            <p>Nigel Mulgrew Plumbing, Inc. | 1127 Palmetto Ave | Pacifica CA 94044 | 650-557-0285</p>
+        </div>
+        
+        <div class="job-info">
+            <div class="job-info-field">
+                <label>Job #</label>
+                <input type="text" id="jobNumber" placeholder="Enter job number" onchange="saveJobInfo()">
+            </div>
+            <div class="job-info-field">
+                <label>Date</label>
+                <input type="date" id="jobDate" onchange="saveJobInfo()">
+            </div>
+            <div class="job-info-field">
+                <label>Technician</label>
+                <input type="text" id="technicianName" placeholder="Enter technician name" onchange="saveJobInfo()">
+            </div>
         </div>
         
         <div class="storage-warning" id="storageWarning">
@@ -544,82 +644,248 @@
                 title: 'Bathroom',
                 emoji: '🚽',
                 canAddMultiple: true,
-                items: [
-                    'Toilet flush', 'Toilet leaks', 'Toilet wobbles', 'Toilet wax ring',
-                    'Sink faucet operation', 'Sink drain', 'Sink leaks', 'Sink trap',
-                    'Shower/tub faucet', 'Shower/tub drain', 'Shower/tub leaks', 'Shower head',
-                    'Tub spout', 'Tub caulking', 'Floor drain', 'Exhaust fan',
-                    'Water pressure', 'Hot water temp', 'Angle stops', 'Supply lines',
-                    'Tile/grout condition', 'Caulking', 'Water damage', 'Ventilation',
-                    'Accessibility', 'Fixtures age', 'Overall bathroom'
+                hasLocation: true,
+                subsections: [
+                    {
+                        title: 'WATER CLOSET',
+                        items: [
+                            'Dye test - pass',
+                            'Flush - pass',
+                            'Seat tight',
+                            'Bolt covers tight',
+                            'Base secure / level',
+                            'Emergency shut-off valve',
+                            'Supply tube',
+                            'Anti-siphon fill valve'
+                        ]
+                    },
+                    {
+                        title: 'LAVATORY SINK & FAUCET',
+                        items: [
+                            'Leaks',
+                            'Aerator',
+                            'Faucet mounted / secure',
+                            'Handles',
+                            'Supplies',
+                            'Emergency shut-off valve',
+                            'Drain piping / flow',
+                            'Pop-up assembly operation',
+                            'Shut-off / ease of operation',
+                            'Faucet operation'
+                        ]
+                    },
+                    {
+                        title: 'TUB / SHOWER UNIT & FAUCET',
+                        items: [
+                            'Shower head',
+                            'Tub spout',
+                            'Handles',
+                            'Diverter assembly',
+                            'Caulking',
+                            'Stopper operation',
+                            'Drain assembly / flow',
+                            'Shut-off / ease of operation',
+                            'Faucet operation'
+                        ]
+                    }
                 ]
             },
             kitchen: {
                 title: 'Kitchen',
                 emoji: '🍳',
                 canAddMultiple: true,
-                items: [
-                    'Kitchen sink faucet', 'Kitchen sink drain', 'Kitchen sink leaks',
-                    'Garbage disposal', 'Dishwasher connection', 'Dishwasher drain',
-                    'Ice maker line', 'Pot filler', 'Kitchen sprayer',
-                    'Angle stops', 'Supply lines', 'Drain pipes',
-                    'Air gap', 'Soap dispenser', 'Water filter',
-                    'Caulking', 'Overall kitchen'
+                hasLocation: false,
+                subsections: [
+                    {
+                        title: 'FAUCET',
+                        items: [
+                            'Aerator',
+                            'Faucet mounted/secure',
+                            'Sprayer',
+                            'Shut-off/ease of operation'
+                        ]
+                    },
+                    {
+                        title: 'SINK',
+                        items: [
+                            'Drain flow',
+                            'Trap & tubular piping',
+                            'Supplies',
+                            'Emergency shut-off valve',
+                            'Strainers',
+                            'Food waste disposal'
+                        ]
+                    },
+                    {
+                        title: 'OTHER',
+                        items: [
+                            'Dishwasher hose loop',
+                            'Ice maker valve / line',
+                            'Ice maker water filter',
+                            'Instant hot water dispenser',
+                            'Soap dispenser',
+                            'Dishwasher supply',
+                            'Dishwasher drain'
+                        ]
+                    }
                 ]
             },
             laundry: {
                 title: 'Laundry',
                 emoji: '🧺',
                 canAddMultiple: false,
-                items: [
-                    'Washer hot valve', 'Washer cold valve', 'Washer drain',
-                    'Washer box', 'Hoses condition', 'Laundry sink faucet',
-                    'Laundry sink drain', 'Floor drain', 'Venting',
-                    'Water pressure', 'Shut-off valves', 'Overall laundry'
+                hasLocation: false,
+                subsections: [
+                    {
+                        title: 'FAUCET & LAUNDRY TUB',
+                        items: [
+                            'Aerator',
+                            'Faucet mounted / secure',
+                            'Handles',
+                            'Drain flow',
+                            'Trap & tubular piping',
+                            'Supplies',
+                            'Emergency shut-off valve',
+                            'Strainers'
+                        ]
+                    },
+                    {
+                        title: 'WASHING MACHINE',
+                        items: [
+                            'Hoses / hot & cold',
+                            'Emergency shut-off valve'
+                        ]
+                    },
+                    {
+                        title: 'DRYER',
+                        items: [
+                            'Gas supply',
+                            'Properly vented'
+                        ]
+                    }
                 ]
             },
             basement: {
                 title: 'Basement/Utility',
                 emoji: '🔧',
                 canAddMultiple: false,
-                items: [
-                    'Main shut-off valve', 'Pressure regulator', 'Water heater',
-                    'Water heater age', 'Water heater venting', 'TPR valve',
-                    'Drain pan', 'Expansion tank', 'Gas lines',
-                    'Sump pump', 'Ejector pump', 'Floor drains',
-                    'Cleanouts', 'Pipe insulation', 'Pipe condition',
-                    'Foundation leaks', 'Sewer line', 'Overall basement'
+                hasLocation: false,
+                subsections: [
+                    {
+                        title: 'HOT WATER HEATER',
+                        items: [
+                            'Emergency water shut-off',
+                            'Drain valve',
+                            'Safety relief valve',
+                            'Proper temperature range',
+                            'Burner assembly clean',
+                            'Gas / electric supply',
+                            'Emergency gas shut-off',
+                            'Draft / ventilation',
+                            'Flu piping',
+                            'CO2 detector'
+                        ]
+                    },
+                    {
+                        title: 'SUMP PUMP',
+                        items: [
+                            'Pit clean',
+                            'Pump operation',
+                            'Discharge piping',
+                            'Check valve',
+                            'Cover secure',
+                            'Piping anchored',
+                            'Back-up system',
+                            'Back-up system condition'
+                        ]
+                    }
                 ]
             },
             garage: {
                 title: 'Garage/Yard',
                 emoji: '🏡',
                 canAddMultiple: false,
-                items: [
-                    'Hose bibs', 'Hose bib leaks', 'Sprinkler system',
-                    'Sprinkler valves', 'Backflow preventer', 'Yard drains',
-                    'Sewer cleanout', 'Water meter', 'Main line',
-                    'Overall exterior'
+                hasLocation: false,
+                subsections: [
+                    {
+                        title: 'HOSE FAUCET #1',
+                        items: [
+                            'Shut-off operation',
+                            'Vacuum breaker',
+                            'Sealed and anchored',
+                            'Anti-siphon device',
+                            'Drainable shut-off'
+                        ]
+                    },
+                    {
+                        title: 'HOSE FAUCET #2',
+                        items: [
+                            'Shut-off operation',
+                            'Vacuum breaker',
+                            'Sealed and anchored',
+                            'Anti-siphon device',
+                            'Drainable shut-off'
+                        ]
+                    }
                 ]
             },
             general: {
                 title: 'General',
                 emoji: '📋',
                 canAddMultiple: false,
-                items: [
-                    'Water quality', 'Water odor', 'Water color',
-                    'Overall pressure', 'Pipe material', 'Visible corrosion',
-                    'Signs of leaks', 'Water stains', 'Mold/mildew',
-                    'Code compliance', 'Safety issues', 'Overall assessment'
+                hasLocation: false,
+                subsections: [
+                    {
+                        title: 'WATER SUPPLY PIPING',
+                        items: [
+                            'Proper flow/operation',
+                            'Emergency shut-off valve',
+                            'Anchored properly',
+                            'Pressure reducing valve',
+                            'Shut-off valves tagged'
+                        ]
+                    },
+                    {
+                        title: 'SANITARY SYSTEM',
+                        items: [
+                            'Proper flow/operation',
+                            'Leaks/corrosion',
+                            'Clean-outs in place',
+                            'Back water/check valve'
+                        ]
+                    },
+                    {
+                        title: 'VIDEO INSPECTION',
+                        items: [
+                            'Line free of obstruction',
+                            'Line free of damages',
+                            'Outside cleanout available'
+                        ]
+                    }
                 ]
             },
             other: {
                 title: 'Other',
                 emoji: '📝',
                 canAddMultiple: false,
-                items: [
-                    'Additional item 1', 'Additional item 2', 'Additional item 3',
-                    'Additional item 4', 'Additional item 5', 'Additional notes'
+                hasLocation: false,
+                subsections: [
+                    {
+                        title: 'FIREPLACE',
+                        items: [
+                            'Gas service',
+                            'Log lighter',
+                            'Gas logs'
+                        ]
+                    },
+                    {
+                        title: 'WET BAR',
+                        items: [
+                            'Sink',
+                            'Faucet',
+                            'Drain'
+                        ]
+                    }
                 ]
             }
         };
@@ -627,6 +893,12 @@
         let currentTab = 'bathrooms-0';
         let evaluationData = {};
         let roomInstances = {};
+        let jobInfo = {
+            jobNumber: '',
+            date: '',
+            technician: ''
+        };
+        let recommendations = '';
         let currentPhotoViewing = null;
         let storageAvailable = false;
 
@@ -647,6 +919,9 @@
 
         function initApp() {
             checkStorage();
+            
+            // Set today's date by default
+            document.getElementById('jobDate').valueAsDate = new Date();
             
             // Initialize with one instance of each room type
             Object.keys(sectionTemplates).forEach(type => {
@@ -676,7 +951,7 @@
             const roomId = generateRoomId(type);
             
             const defaultName = template.canAddMultiple 
-                ? `${template.title} ${roomInstances[type].length + 1}`
+                ? `${template.title} #${roomInstances[type].length + 1}`
                 : template.title;
 
             roomInstances[type].push({
@@ -688,16 +963,23 @@
             evaluationData[roomId] = {
                 type: type,
                 name: defaultName,
-                items: {},
+                location: '',
+                subsections: {},
                 photos: []
             };
 
-            template.items.forEach((item, index) => {
-                evaluationData[roomId].items[index] = {
-                    title: item,
-                    condition: null,
-                    notes: ''
+            template.subsections.forEach((subsection, subIndex) => {
+                evaluationData[roomId].subsections[subIndex] = {
+                    title: subsection.title,
+                    items: {}
                 };
+                subsection.items.forEach((item, itemIndex) => {
+                    evaluationData[roomId].subsections[subIndex].items[itemIndex] = {
+                        title: item,
+                        condition: null,
+                        notes: ''
+                    };
+                });
             });
 
             currentTab = roomId;
@@ -723,13 +1005,9 @@
 
             if (!confirm(`Delete ${roomData.name}?`)) return;
 
-            // Remove from instances
             roomInstances[type] = roomInstances[type].filter(r => r.id !== roomId);
-            
-            // Delete data
             delete evaluationData[roomId];
 
-            // Switch to another tab
             if (currentTab === roomId) {
                 const allRoomIds = getAllRoomIds();
                 currentTab = allRoomIds[0] || 'summary';
@@ -748,7 +1026,6 @@
             if (newName && newName.trim()) {
                 roomData.name = newName.trim();
                 
-                // Update in instances
                 const type = roomData.type;
                 const instance = roomInstances[type].find(r => r.id === roomId);
                 if (instance) {
@@ -771,11 +1048,17 @@
             return ids;
         }
 
+        function saveJobInfo() {
+            jobInfo.jobNumber = document.getElementById('jobNumber').value;
+            jobInfo.date = document.getElementById('jobDate').value;
+            jobInfo.technician = document.getElementById('technicianName').value;
+            saveDataDebounced();
+        }
+
         function renderTabs() {
             const navTabs = document.getElementById('navTabs');
             navTabs.innerHTML = '';
 
-            // Add tabs for each room instance
             Object.keys(sectionTemplates).forEach(type => {
                 const template = sectionTemplates[type];
                 
@@ -802,7 +1085,6 @@
                     navTabs.appendChild(button);
                 });
 
-                // Add "+" button for types that can have multiples
                 if (template.canAddMultiple) {
                     const addBtn = document.createElement('button');
                     addBtn.className = 'add-room-btn';
@@ -812,7 +1094,6 @@
                 }
             });
 
-            // Add summary tab
             const summaryBtn = document.createElement('button');
             summaryBtn.className = `nav-tab ${currentTab === 'summary' ? 'active' : ''}`;
             summaryBtn.textContent = '📊 Summary';
@@ -848,29 +1129,44 @@
                     </div>
             `;
 
-            template.items.forEach((item, index) => {
-                const itemData = roomData.items[index];
+            if (template.hasLocation) {
                 html += `
-                    <div class="item">
-                        <div class="item-header">
-                            <div class="item-number">${index + 1}</div>
-                            <div class="item-title">${item}</div>
-                            <div class="condition-group">
-                                <button class="condition-btn good ${itemData.condition === 'good' ? 'active' : ''}" 
-                                        onclick="setCondition('${currentTab}', ${index}, 'good')">✓ Good</button>
-                                <button class="condition-btn fair ${itemData.condition === 'fair' ? 'active' : ''}" 
-                                        onclick="setCondition('${currentTab}', ${index}, 'fair')">! Fair</button>
-                                <button class="condition-btn poor ${itemData.condition === 'poor' ? 'active' : ''}" 
-                                        onclick="setCondition('${currentTab}', ${index}, 'poor')">✗ Poor</button>
-                            </div>
-                        </div>
-                        <div class="item-notes">
-                            <textarea placeholder="Add notes..." 
-                                      onchange="setNotes('${currentTab}', ${index}, this.value)"
-                                      onblur="saveDataDebounced()">${itemData.notes}</textarea>
-                        </div>
+                    <div class="location-field">
+                        <label>LOCATION</label>
+                        <input type="text" value="${roomData.location}" 
+                               onchange="setLocation('${currentTab}', this.value)"
+                               placeholder="Enter bathroom location...">
                     </div>
                 `;
+            }
+
+            template.subsections.forEach((subsection, subIndex) => {
+                html += `<div class="subsection-title">${subsection.title}</div>`;
+                
+                subsection.items.forEach((item, itemIndex) => {
+                    const itemData = roomData.subsections[subIndex].items[itemIndex];
+                    html += `
+                        <div class="item">
+                            <div class="item-header">
+                                <div class="item-number">${itemIndex + 1}</div>
+                                <div class="item-title">${item}</div>
+                                <div class="condition-group">
+                                    <button class="condition-btn good ${itemData.condition === 'good' ? 'active' : ''}" 
+                                            onclick="setCondition('${currentTab}', ${subIndex}, ${itemIndex}, 'good')">●</button>
+                                    <button class="condition-btn fair ${itemData.condition === 'fair' ? 'active' : ''}" 
+                                            onclick="setCondition('${currentTab}', ${subIndex}, ${itemIndex}, 'fair')">●</button>
+                                    <button class="condition-btn poor ${itemData.condition === 'poor' ? 'active' : ''}" 
+                                            onclick="setCondition('${currentTab}', ${subIndex}, ${itemIndex}, 'poor')">●</button>
+                                </div>
+                            </div>
+                            <div class="item-notes">
+                                <textarea placeholder="Add notes..." 
+                                          onchange="setNotes('${currentTab}', ${subIndex}, ${itemIndex}, this.value)"
+                                          onblur="saveDataDebounced()">${itemData.notes}</textarea>
+                            </div>
+                        </div>
+                    `;
+                });
             });
 
             html += `
@@ -894,14 +1190,19 @@
             container.innerHTML = html;
         }
 
-        function setCondition(roomId, index, condition) {
-            evaluationData[roomId].items[index].condition = condition;
+        function setLocation(roomId, location) {
+            evaluationData[roomId].location = location;
+            saveDataDebounced();
+        }
+
+        function setCondition(roomId, subIndex, itemIndex, condition) {
+            evaluationData[roomId].subsections[subIndex].items[itemIndex].condition = condition;
             saveDataDebounced();
             renderContent();
         }
 
-        function setNotes(roomId, index, notes) {
-            evaluationData[roomId].items[index].notes = notes;
+        function setNotes(roomId, subIndex, itemIndex, notes) {
+            evaluationData[roomId].subsections[subIndex].items[itemIndex].notes = notes;
         }
 
         let saveTimeout;
@@ -918,10 +1219,12 @@
             
             try {
                 const dataToSave = {
-                    version: 2,
+                    version: 3,
                     timestamp: new Date().toISOString(),
+                    jobInfo: jobInfo,
                     roomInstances: roomInstances,
-                    data: evaluationData
+                    data: evaluationData,
+                    recommendations: recommendations
                 };
                 localStorage.setItem('plumbingEval', JSON.stringify(dataToSave));
             } catch (e) {
@@ -936,12 +1239,15 @@
                 if (saved) {
                     const parsed = JSON.parse(saved);
                     if (confirm('Found saved data from ' + new Date(parsed.timestamp).toLocaleString() + '. Restore it?')) {
-                        if (parsed.version === 2) {
+                        if (parsed.version === 3) {
+                            jobInfo = parsed.jobInfo || jobInfo;
                             roomInstances = parsed.roomInstances;
                             evaluationData = parsed.data;
-                        } else {
-                            // Migrate old data
-                            alert('Converting old data format...');
+                            recommendations = parsed.recommendations || '';
+                            
+                            document.getElementById('jobNumber').value = jobInfo.jobNumber;
+                            document.getElementById('jobDate').value = jobInfo.date;
+                            document.getElementById('technicianName').value = jobInfo.technician;
                         }
                     }
                 }
@@ -1057,13 +1363,14 @@
             let totalPhotos = 0;
 
             Object.values(evaluationData).forEach(roomData => {
-                const items = roomData.items;
-                Object.values(items).forEach(item => {
-                    totalItems++;
-                    if (item.condition === 'good') goodCount++;
-                    else if (item.condition === 'fair') fairCount++;
-                    else if (item.condition === 'poor') poorCount++;
-                    else notEvaluated++;
+                Object.values(roomData.subsections).forEach(subsection => {
+                    Object.values(subsection.items).forEach(item => {
+                        totalItems++;
+                        if (item.condition === 'good') goodCount++;
+                        else if (item.condition === 'fair') fairCount++;
+                        else if (item.condition === 'poor') poorCount++;
+                        else notEvaluated++;
+                    });
                 });
                 totalPhotos += roomData.photos.length;
             });
@@ -1097,25 +1404,24 @@
                             <p>Photos Taken</p>
                         </div>
                     </div>
+                    
+                    <div class="recommendations-section">
+                        <h3>RECOMMENDATIONS:</h3>
+                        <textarea placeholder="Enter recommendations here..." 
+                                  onchange="saveRecommendations(this.value)"
+                                  onblur="saveData()">${recommendations}</textarea>
+                    </div>
                 </div>
             `;
         }
 
-        function saveJSON() {
-            const dataStr = JSON.stringify({
-                roomInstances,
-                evaluationData
-            }, null, 2);
-            const dataBlob = new Blob([dataStr], { type: 'application/json' });
-            const url = URL.createObjectURL(dataBlob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `plumbing-eval-${new Date().toISOString().split('T')[0]}.json`;
-            link.click();
-            URL.revokeObjectURL(url);
+        function saveRecommendations(text) {
+            recommendations = text;
         }
 
         async function savePDF() {
+            alert('Generating PDF... This may take a moment.');
+            
             const { jsPDF } = window.jspdf;
             const pdf = new jsPDF('p', 'mm', 'a4');
             
@@ -1125,7 +1431,6 @@
             const contentWidth = pageWidth - (2 * margin);
             let yPosition = margin;
 
-            // Helper function to check if we need a new page
             function checkNewPage(heightNeeded) {
                 if (yPosition + heightNeeded > pageHeight - margin) {
                     pdf.addPage();
@@ -1137,20 +1442,29 @@
 
             // Header
             pdf.setFillColor(44, 62, 80);
-            pdf.rect(0, 0, pageWidth, 35, 'F');
+            pdf.rect(0, 0, pageWidth, 40, 'F');
             pdf.setTextColor(255, 255, 255);
             pdf.setFontSize(22);
-            pdf.text('Plumbing Evaluation Report', pageWidth / 2, 15, { align: 'center' });
+            pdf.text('Home Plumbing Evaluation', pageWidth / 2, 15, { align: 'center' });
             pdf.setFontSize(10);
             pdf.text('Nigel Mulgrew Plumbing, Inc.', pageWidth / 2, 23, { align: 'center' });
-            pdf.text(new Date().toLocaleString(), pageWidth / 2, 29, { align: 'center' });
+            pdf.text('1127 Palmetto Ave | Pacifica CA 94044 | 650-557-0285', pageWidth / 2, 29, { align: 'center' });
+            pdf.text('nigelmulgrewplumbing.com', pageWidth / 2, 35, { align: 'center' });
             
-            yPosition = 45;
+            yPosition = 50;
 
-            // Summary Section
+            // Job Info
             pdf.setTextColor(0, 0, 0);
-            pdf.setFontSize(16);
+            pdf.setFontSize(11);
             pdf.setFont(undefined, 'bold');
+            pdf.text(`Job #: ${jobInfo.jobNumber || 'N/A'}`, margin, yPosition);
+            pdf.text(`Date: ${jobInfo.date || 'N/A'}`, pageWidth / 2, yPosition);
+            yPosition += 6;
+            pdf.text(`Technician: ${jobInfo.technician || 'N/A'}`, margin, yPosition);
+            yPosition += 12;
+
+            // Summary
+            pdf.setFontSize(16);
             pdf.text('Summary', margin, yPosition);
             yPosition += 10;
 
@@ -1158,41 +1472,38 @@
             let goodCount = 0;
             let fairCount = 0;
             let poorCount = 0;
-            let notEvaluated = 0;
             let totalPhotos = 0;
 
             Object.values(evaluationData).forEach(roomData => {
-                Object.values(roomData.items).forEach(item => {
-                    totalItems++;
-                    if (item.condition === 'good') goodCount++;
-                    else if (item.condition === 'fair') fairCount++;
-                    else if (item.condition === 'poor') poorCount++;
-                    else notEvaluated++;
+                Object.values(roomData.subsections).forEach(subsection => {
+                    Object.values(subsection.items).forEach(item => {
+                        totalItems++;
+                        if (item.condition === 'good') goodCount++;
+                        else if (item.condition === 'fair') fairCount++;
+                        else if (item.condition === 'poor') poorCount++;
+                    });
                 });
                 totalPhotos += roomData.photos.length;
             });
 
             pdf.setFont(undefined, 'normal');
             pdf.setFontSize(11);
-            pdf.text(`Total Items Evaluated: ${totalItems}`, margin, yPosition);
+            pdf.text(`Total Items: ${totalItems}`, margin, yPosition);
             yPosition += 6;
             pdf.setTextColor(40, 167, 69);
-            pdf.text(`Good Condition: ${goodCount}`, margin, yPosition);
+            pdf.text(`Good: ${goodCount}`, margin, yPosition);
             yPosition += 6;
             pdf.setTextColor(255, 193, 7);
-            pdf.text(`Fair Condition: ${fairCount}`, margin, yPosition);
+            pdf.text(`Fair: ${fairCount}`, margin, yPosition);
             yPosition += 6;
             pdf.setTextColor(220, 53, 69);
-            pdf.text(`Poor Condition: ${poorCount}`, margin, yPosition);
-            yPosition += 6;
-            pdf.setTextColor(108, 117, 125);
-            pdf.text(`Not Evaluated: ${notEvaluated}`, margin, yPosition);
+            pdf.text(`Poor: ${poorCount}`, margin, yPosition);
             yPosition += 6;
             pdf.setTextColor(102, 126, 234);
-            pdf.text(`Total Photos: ${totalPhotos}`, margin, yPosition);
+            pdf.text(`Photos: ${totalPhotos}`, margin, yPosition);
             yPosition += 12;
 
-            // Issues Found Section
+            // Issues Found
             pdf.setTextColor(0, 0, 0);
             pdf.setFontSize(16);
             pdf.setFont(undefined, 'bold');
@@ -1202,15 +1513,18 @@
 
             let issuesFound = [];
             Object.values(evaluationData).forEach(roomData => {
-                Object.entries(roomData.items).forEach(([index, item]) => {
-                    if (item.condition === 'fair' || item.condition === 'poor') {
-                        issuesFound.push({
-                            room: roomData.name,
-                            item: item.title,
-                            condition: item.condition,
-                            notes: item.notes
-                        });
-                    }
+                Object.values(roomData.subsections).forEach(subsection => {
+                    Object.entries(subsection.items).forEach(([index, item]) => {
+                        if (item.condition === 'fair' || item.condition === 'poor') {
+                            issuesFound.push({
+                                room: roomData.name,
+                                subsection: subsection.title,
+                                item: item.title,
+                                condition: item.condition,
+                                notes: item.notes
+                            });
+                        }
+                    });
                 });
             });
 
@@ -1229,11 +1543,13 @@
                     
                     pdf.setTextColor(0, 0, 0);
                     pdf.setFont(undefined, 'bold');
-                    const issueText = `${index + 1}. ${issue.room} - ${issue.item}`;
-                    pdf.text(issueText, margin, yPosition);
+                    pdf.text(`${index + 1}. ${issue.room} - ${issue.subsection}`, margin, yPosition);
                     yPosition += 5;
                     
                     pdf.setFont(undefined, 'normal');
+                    pdf.text(`${issue.item}`, margin + 5, yPosition);
+                    yPosition += 5;
+                    
                     if (issue.condition === 'poor') {
                         pdf.setTextColor(220, 53, 69);
                     } else {
@@ -1256,9 +1572,30 @@
                 });
             }
 
-            yPosition += 10;
+            yPosition += 5;
 
-            // Detailed Evaluation by Room
+            // Recommendations
+            if (recommendations) {
+                checkNewPage(20);
+                pdf.setTextColor(0, 0, 0);
+                pdf.setFontSize(16);
+                pdf.setFont(undefined, 'bold');
+                pdf.text('Recommendations', margin, yPosition);
+                yPosition += 10;
+
+                pdf.setFont(undefined, 'normal');
+                pdf.setFontSize(10);
+                pdf.setTextColor(60, 60, 60);
+                const recLines = pdf.splitTextToSize(recommendations, contentWidth);
+                recLines.forEach(line => {
+                    checkNewPage(5);
+                    pdf.text(line, margin, yPosition);
+                    yPosition += 5;
+                });
+                yPosition += 10;
+            }
+
+            // Detailed Evaluation
             pdf.setTextColor(0, 0, 0);
             pdf.setFontSize(16);
             pdf.setFont(undefined, 'bold');
@@ -1269,90 +1606,99 @@
             Object.values(evaluationData).forEach(roomData => {
                 checkNewPage(20);
                 
-                // Room header
                 pdf.setFontSize(14);
                 pdf.setFont(undefined, 'bold');
                 pdf.setTextColor(102, 126, 234);
                 pdf.text(roomData.name, margin, yPosition);
                 yPosition += 8;
 
-                // Room items
+                if (roomData.location) {
+                    pdf.setFontSize(10);
+                    pdf.setFont(undefined, 'italic');
+                    pdf.setTextColor(108, 117, 125);
+                    pdf.text(`Location: ${roomData.location}`, margin + 3, yPosition);
+                    yPosition += 6;
+                }
+
                 pdf.setFontSize(9);
                 pdf.setFont(undefined, 'normal');
                 
-                Object.entries(roomData.items).forEach(([index, item]) => {
-                    checkNewPage(10);
+                Object.values(roomData.subsections).forEach(subsection => {
+                    checkNewPage(15);
                     
-                    let conditionColor = [108, 117, 125]; // gray for not evaluated
-                    let conditionText = 'Not Evaluated';
-                    
-                    if (item.condition === 'good') {
-                        conditionColor = [40, 167, 69];
-                        conditionText = 'GOOD';
-                    } else if (item.condition === 'fair') {
-                        conditionColor = [255, 193, 7];
-                        conditionText = 'FAIR';
-                    } else if (item.condition === 'poor') {
-                        conditionColor = [220, 53, 69];
-                        conditionText = 'POOR';
-                    }
-                    
+                    pdf.setFont(undefined, 'bold');
                     pdf.setTextColor(0, 0, 0);
-                    pdf.text(`${parseInt(index) + 1}. ${item.title}`, margin + 3, yPosition);
+                    pdf.text(subsection.title, margin + 3, yPosition);
+                    yPosition += 5;
                     
-                    pdf.setTextColor(...conditionColor);
-                    pdf.text(conditionText, margin + 100, yPosition);
-                    yPosition += 4;
+                    Object.entries(subsection.items).forEach(([index, item]) => {
+                        checkNewPage(10);
+                        
+                        let conditionColor = [108, 117, 125];
+                        let conditionText = 'Not Evaluated';
+                        
+                        if (item.condition === 'good') {
+                            conditionColor = [40, 167, 69];
+                            conditionText = 'GOOD';
+                        } else if (item.condition === 'fair') {
+                            conditionColor = [255, 193, 7];
+                            conditionText = 'FAIR';
+                        } else if (item.condition === 'poor') {
+                            conditionColor = [220, 53, 69];
+                            conditionText = 'POOR';
+                        }
+                        
+                        pdf.setFont(undefined, 'normal');
+                        pdf.setTextColor(0, 0, 0);
+                        pdf.text(`${parseInt(index) + 1}. ${item.title}`, margin + 6, yPosition);
+                        
+                        pdf.setTextColor(...conditionColor);
+                        pdf.text(conditionText, margin + 100, yPosition);
+                        yPosition += 4;
+                        
+                        if (item.notes) {
+                            pdf.setTextColor(60, 60, 60);
+                            const lines = pdf.splitTextToSize(item.notes, contentWidth - 15);
+                            lines.forEach(line => {
+                                checkNewPage(4);
+                                pdf.text(line, margin + 10, yPosition);
+                                yPosition += 4;
+                            });
+                        }
+                        
+                        yPosition += 2;
+                    });
                     
-                    if (item.notes) {
-                        pdf.setTextColor(60, 60, 60);
-                        const lines = pdf.splitTextToSize(item.notes, contentWidth - 10);
-                        lines.forEach(line => {
-                            checkNewPage(4);
-                            pdf.text(line, margin + 8, yPosition);
-                            yPosition += 4;
-                        });
-                    }
-                    
-                    yPosition += 2;
+                    yPosition += 3;
                 });
                 
                 yPosition += 5;
             });
 
-            // Add photos section indicator
+            // Photos
             if (totalPhotos > 0) {
                 checkNewPage(20);
                 pdf.setFontSize(14);
                 pdf.setFont(undefined, 'bold');
                 pdf.setTextColor(102, 126, 234);
                 pdf.text('Photos', margin, yPosition);
-                yPosition += 8;
-                pdf.setFontSize(10);
-                pdf.setFont(undefined, 'normal');
-                pdf.setTextColor(60, 60, 60);
-                pdf.text(`${totalPhotos} photos were taken during this evaluation.`, margin, yPosition);
-                yPosition += 6;
-                pdf.text('Photos are compressed and included on the following pages.', margin, yPosition);
                 yPosition += 10;
 
-                // Add photos
                 for (const roomData of Object.values(evaluationData)) {
                     if (roomData.photos.length > 0) {
                         checkNewPage(20);
                         pdf.setFontSize(12);
                         pdf.setFont(undefined, 'bold');
                         pdf.setTextColor(102, 126, 234);
-                        pdf.text(`${roomData.name} Photos`, margin, yPosition);
+                        pdf.text(`${roomData.name}`, margin, yPosition);
                         yPosition += 8;
 
                         for (let i = 0; i < roomData.photos.length; i++) {
                             const photo = roomData.photos[i];
                             
-                            // Check if we need a new page for the photo
                             const photoHeight = 100;
                             if (checkNewPage(photoHeight + 10)) {
-                                // New page was added
+                                // New page added
                             }
                             
                             try {
@@ -1374,165 +1720,28 @@
                 }
             }
 
-            // Save the PDF
-            const fileName = `Plumbing_Evaluation_${new Date().toISOString().split('T')[0]}.pdf`;
+            const fileName = `Plumbing_Evaluation_${jobInfo.jobNumber || 'Report'}_${new Date().toISOString().split('T')[0]}.pdf`;
             pdf.save(fileName);
             
             alert('PDF saved successfully!');
         }
 
         async function emailPDF() {
-            alert('Generating PDF... This may take a moment.');
+            alert('Generating PDF for email... This may take a moment.');
+            await savePDF();
             
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
-            
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            const margin = 15;
-            const contentWidth = pageWidth - (2 * margin);
-            let yPosition = margin;
-
-            function checkNewPage(heightNeeded) {
-                if (yPosition + heightNeeded > pageHeight - margin) {
-                    pdf.addPage();
-                    yPosition = margin;
-                    return true;
-                }
-                return false;
-            }
-
-            // Generate same PDF content
-            pdf.setFillColor(44, 62, 80);
-            pdf.rect(0, 0, pageWidth, 35, 'F');
-            pdf.setTextColor(255, 255, 255);
-            pdf.setFontSize(22);
-            pdf.text('Plumbing Evaluation Report', pageWidth / 2, 15, { align: 'center' });
-            pdf.setFontSize(10);
-            pdf.text('Nigel Mulgrew Plumbing, Inc.', pageWidth / 2, 23, { align: 'center' });
-            pdf.text(new Date().toLocaleString(), pageWidth / 2, 29, { align: 'center' });
-            
-            yPosition = 45;
-
-            // Summary
-            pdf.setTextColor(0, 0, 0);
-            pdf.setFontSize(16);
-            pdf.setFont(undefined, 'bold');
-            pdf.text('Summary', margin, yPosition);
-            yPosition += 10;
-
-            let totalItems = 0;
-            let goodCount = 0;
-            let fairCount = 0;
-            let poorCount = 0;
-
-            Object.values(evaluationData).forEach(roomData => {
-                Object.values(roomData.items).forEach(item => {
-                    totalItems++;
-                    if (item.condition === 'good') goodCount++;
-                    else if (item.condition === 'fair') fairCount++;
-                    else if (item.condition === 'poor') poorCount++;
-                });
-            });
-
-            pdf.setFont(undefined, 'normal');
-            pdf.setFontSize(11);
-            pdf.text(`Total Items: ${totalItems}`, margin, yPosition);
-            yPosition += 6;
-            pdf.setTextColor(40, 167, 69);
-            pdf.text(`Good: ${goodCount}`, margin, yPosition);
-            yPosition += 6;
-            pdf.setTextColor(255, 193, 7);
-            pdf.text(`Fair: ${fairCount}`, margin, yPosition);
-            yPosition += 6;
-            pdf.setTextColor(220, 53, 69);
-            pdf.text(`Poor: ${poorCount}`, margin, yPosition);
-            yPosition += 12;
-
-            // Issues
-            pdf.setTextColor(0, 0, 0);
-            pdf.setFontSize(16);
-            pdf.setFont(undefined, 'bold');
-            pdf.text('Issues Found', margin, yPosition);
-            yPosition += 10;
-
-            let issuesFound = [];
-            Object.values(evaluationData).forEach(roomData => {
-                Object.entries(roomData.items).forEach(([index, item]) => {
-                    if (item.condition === 'fair' || item.condition === 'poor') {
-                        issuesFound.push({
-                            room: roomData.name,
-                            item: item.title,
-                            condition: item.condition,
-                            notes: item.notes
-                        });
-                    }
-                });
-            });
-
-            if (issuesFound.length === 0) {
-                pdf.setFont(undefined, 'normal');
-                pdf.setFontSize(11);
-                pdf.setTextColor(40, 167, 69);
-                pdf.text('No significant issues found!', margin, yPosition);
-            } else {
-                pdf.setFont(undefined, 'normal');
-                pdf.setFontSize(10);
-                
-                issuesFound.forEach((issue, index) => {
-                    checkNewPage(20);
-                    
-                    pdf.setTextColor(0, 0, 0);
-                    pdf.setFont(undefined, 'bold');
-                    pdf.text(`${index + 1}. ${issue.room} - ${issue.item}`, margin, yPosition);
-                    yPosition += 5;
-                    
-                    pdf.setFont(undefined, 'normal');
-                    if (issue.condition === 'poor') {
-                        pdf.setTextColor(220, 53, 69);
-                    } else {
-                        pdf.setTextColor(255, 193, 7);
-                    }
-                    pdf.text(`Condition: ${issue.condition.toUpperCase()}`, margin + 5, yPosition);
-                    yPosition += 5;
-                    
-                    if (issue.notes) {
-                        pdf.setTextColor(60, 60, 60);
-                        const lines = pdf.splitTextToSize(`Notes: ${issue.notes}`, contentWidth - 10);
-                        lines.forEach(line => {
-                            checkNewPage(5);
-                            pdf.text(line, margin + 5, yPosition);
-                            yPosition += 5;
-                        });
-                    }
-                    
-                    yPosition += 3;
-                });
-            }
-
-            // Convert PDF to base64 for attachment
-            const pdfData = pdf.output('dataurlstring');
-            
-            // Create mailto with instructions
-            const subject = 'Plumbing Evaluation Report - ' + new Date().toLocaleDateString();
-            const body = encodeURIComponent(
-                'Please find attached the plumbing evaluation report.\n\n' +
-                'Summary:\n' +
-                `Total Items: ${totalItems}\n` +
-                `Good: ${goodCount}\n` +
-                `Fair: ${fairCount}\n` +
-                `Poor: ${poorCount}\n\n` +
-                'Note: PDF has been saved to your device. Please attach it manually to this email.\n\n' +
-                'Best regards,\n' +
-                'Nigel Mulgrew Plumbing, Inc.'
-            );
-            
-            // Save PDF first
-            const fileName = `Plumbing_Evaluation_${new Date().toISOString().split('T')[0]}.pdf`;
-            pdf.save(fileName);
-            
-            // Then open email
             setTimeout(() => {
+                const subject = `Plumbing Evaluation - Job #${jobInfo.jobNumber || 'N/A'}`;
+                const body = encodeURIComponent(
+                    `Home Plumbing Evaluation Report\n\n` +
+                    `Job #: ${jobInfo.jobNumber || 'N/A'}\n` +
+                    `Date: ${jobInfo.date || 'N/A'}\n` +
+                    `Technician: ${jobInfo.technician || 'N/A'}\n\n` +
+                    `Please find the attached PDF report with full evaluation details and photos.\n\n` +
+                    `Best regards,\n` +
+                    `Nigel Mulgrew Plumbing, Inc.`
+                );
+                
                 const mailto = `mailto:info@nigelmulgrewplumbing.com?subject=${encodeURIComponent(subject)}&body=${body}`;
                 window.location.href = mailto;
                 
@@ -1549,6 +1758,8 @@
                 }
                 evaluationData = {};
                 roomInstances = {};
+                jobInfo = { jobNumber: '', date: '', technician: '' };
+                recommendations = '';
                 initApp();
             }
         }
